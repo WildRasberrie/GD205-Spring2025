@@ -17,7 +17,6 @@ void display (){
   pushMatrix();
   translate(pos.x,pos.y);//setting origin pt 
   rect(-3,4,40,200);//L-side Paddle 
-  rect((width-43)/1.0,0, width-953,200);//R-Side Paddle
   popMatrix();
 }
 
@@ -48,3 +47,4 @@ void update(){
           pos.y+=max(5,0);
       }     
    }
+}
