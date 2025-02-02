@@ -1,7 +1,7 @@
 //PROPERTIES
 class Ball{
   PVector heading,pos;
-  float size,speed,radius,score;
+  float size,speed,score;
   int screen;
   
 //CONSTRUCTORS 
@@ -11,7 +11,6 @@ Ball(float x,float y,float s){
   heading = PVector.random2D().mult(2);//setting random heading
   size=s;
   speed=2.0;
-  radius= size;
   score=0;
   screen=1;
 }
@@ -32,8 +31,12 @@ void update(){
   
   offScreen= pos.x>width||pos.x<0;
 
-  if (pos.y>500||pos.y<0){
+  if (pos.y>500){
     pos.y=500;
+    heading.y*=-1;
+  }
+  if (pos.y<0){
+    pos.y=0;
     heading.y*=-1;
   }
   if (pos.x>500||pos.x<0){
@@ -48,8 +51,6 @@ void update(){
   }
   scoreDisplay();
   pos.add(heading);
-  println("ball POS:"+pos.x+"   Ball POS Y "+pos.y);//Checking ball collision
-
 }
 
 

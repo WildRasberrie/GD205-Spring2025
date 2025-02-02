@@ -1,39 +1,37 @@
 //PROPERTIES
-class Paddles{
-  PVector pos,heading;
-  float speed;
-
+class CollisionBarrier{
+PVector pos, heading;
+float size,speed;
 //CONSTRUCTORS
-Paddles(float x, float y){
+CollisionBarrier(float x, float y, float s){
   pos= new PVector (x,y);//setting pos
   heading= new PVector (0,1);//heading on Y-Axis
-  speed=0.0;//setting initial speed to 0 
+  size=s;
+  speed=0.0;
 }
-
 
 //METHODS
-void display (){
-  fill(0);//fill is black
+void display(){
+  fill(100);//fill is black
   pushMatrix();
   translate(pos.x,pos.y);//setting origin pt 
-  rect(-3,4,40,200);//L-side Paddle 
+  circle(-3,40,200);//L-side Paddle 
   popMatrix();
 }
-
 void update(){
-  //Implementing controls
+    //Implementing controls
   if(playerControl){
     ButtonPressed(); 
   }
   //Border Barriers
   boolean offTop,offBottom;
-  offTop= (pos.y<1);
-  offBottom=(pos.y>800);
+  offTop= (pos.y<100);
+  offBottom=(pos.y>900);
   if (offTop){
-    pos.y=0;
+    pos.y=100;
   }
   if (offBottom){
-    pos.y=(800);
+    pos.y=(900);
   }
   
     pos.add(PVector.mult(heading,speed));

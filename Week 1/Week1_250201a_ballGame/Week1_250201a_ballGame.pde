@@ -1,6 +1,7 @@
 Paddles[] p;
 Ball b;
-int screen;
+CollisionBarrier[] cb;
+int screen,s,r;
 boolean playerControl = true;
 
 void setup (){
@@ -17,25 +18,25 @@ void setup (){
   }
   
   b= new Ball (random(width),random(height),35);
+  cb=new CollisionBarrier[2];
+  for(int i=0;i<cb.length;i++){
+    cb[0]=new CollisionBarrier(-50,height-410,100);
+    cb[1]=new CollisionBarrier(width+50,height-410,100);
+  }
+  s=200;
+  r=20;
 }
 
 void draw(){
 background(180); //background set to gray
-//collision lines
-stroke(255,0,0);
-strokeWeight(5);
-pushMatrix();
-translate(b.pos.x,b.pos.y);
-line(b.pos.x,b.pos.x,b.pos.y,b.pos.y);
-popMatrix();
-
 
 if (screen==1){
-  for(int i=0;i<p.length;i++){
-    boolean hitsPaddle = (dist(p[i].pos.x-50,p[i].pos.y-100,b.pos.x,b.pos.y)<=10);
-    
+  for(int i=0;i<cb.length;i++){
+    boolean hitsPaddle = (dist(b.pos.x,b.pos.y,cb[i].pos.x,cb[i].pos.y)<s);
+
     if(hitsPaddle){
       println("HIT!");
+      b.pos.x=cb[i].pos.x;
       b.heading.x*=-1;
       b.score++;
     }
@@ -44,6 +45,10 @@ if (screen==1){
     p[i].display();
     p[i].update();
   }
+   for(int i=0;i<cb.length;i++){
+    cb[i].display();
+    cb[i].update();
+  }
   b.display();
   b.update();
 }
@@ -51,5 +56,6 @@ if (screen==1){
 if (screen==2){
   b.endGame();
 }
-  
+  int i=0;
+   println("Distance:  "+dist(b.pos.x,b.pos.y,cb[i].pos.x,cb[i].pos.y));//Checking ball collision 
 }
