@@ -30,7 +30,7 @@ class GameScreens{
   pushMatrix();
   fill (255,0,0);//red
   textSize(36);
-  text ("Score: " + score,width-200,50);
+  text ("Score: " + score,width-150,50);
   popMatrix();
   }
   

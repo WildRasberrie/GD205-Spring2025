@@ -14,10 +14,7 @@ Paddles(float x, float y){
 //METHODS
 void display (){
   fill(0);//fill is black
-  pushMatrix();
-  translate(pos.x,pos.y);//setting origin pt 
-  rect(-3,4,40,200);//L-side Paddle 
-  popMatrix();
+  rect(pos.x,pos.y,40,200);//L-side Paddle 
 }
 
 void update(){
@@ -27,16 +24,15 @@ void update(){
   }
   //Border Barriers
   boolean offTop,offBottom;
-  offTop= (pos.y<1);
+  offTop= (pos.y<100);
   offBottom=(pos.y>800);
   if (offTop){
-    pos.y=0;
+    pos.y=100;
   }
   if (offBottom){
     pos.y=(800);
   }
-  
-    pos.add(PVector.mult(heading,speed));
+  pos.add(PVector.mult(heading,speed));
 }
     
    void ButtonPressed(){
