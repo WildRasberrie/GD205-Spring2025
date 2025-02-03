@@ -11,18 +11,30 @@ class GameScreens{
   //METHODS
   void display (){
     background(180);
+    for (int i = 0; i < 1000; i = i+33) {
+      stroke(0);
+      strokeWeight (18);
+      line(473, i, 480, i);
+    }
+    noStroke();
     scoreDisplay();
     
   }
   void update(){
     boolean offScreen=b.pos.x>width||b.pos.x<0;
     if(offScreen){
-      //endGame();
+      endGame();
     }
     if (key=='r'||key=='R'){
+      println("R is Being Pressed");
+      loop();
       resetGame();
     }
-    scoreDisplay();    
+    if (screen==1){
+      scoreDisplay(); 
+    }else{
+      
+    }
   }
   
   void scoreDisplay(){
@@ -39,10 +51,12 @@ class GameScreens{
     screen=2;
     background(0);
     fill(255);//white fill
-    textSize(200);
-    text ("YOU LOSE!",0,height/2.0);
+    textSize(180);
+    textAlign(CENTER);
+    text ("YOU LOSE!",width/2.0,height/2.0);
     textSize(50);
-    text ("Press 'R' to reset game",0,height/2.0+50);  
+    text ("Press 'R' to reset game",width/2.0,height/2.0+50); 
+    noLoop();
   }
   
   void resetGame(){

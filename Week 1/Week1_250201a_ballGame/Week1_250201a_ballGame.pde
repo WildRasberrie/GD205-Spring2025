@@ -36,16 +36,6 @@ void draw(){
       b.pos.y=100;
       b.heading.y*=-1;
     }
-    if (b.pos.x>(width)){//RIGHT BARRIER
-      //println("RIGHT BARRIER WORKING!");
-      b.pos.x=(width);
-      b.heading.x*=-1;
-    }
-    if (b.pos.x<0){//LEFT BARRIER
-      //println("LEFT BARRIER WORKING!");
-      b.pos.x=0;
-      b.heading.x*=-1;
-    }
   gs.display();
   gs.update();
  

@@ -11,7 +11,7 @@ Ball(float x,float y,float s){
   heading = PVector.random2D().mult(2);//setting random heading
   size=s;
   speed=2.0;
-  maxSpeed=5.0;
+  maxSpeed=10.0;
   s=100;
   r=20;
   testX=pos.x+r;
@@ -30,25 +30,27 @@ void update(){
  boolean ballCollidesL=b.pos.x>(p[0].pos.x+s) &&
                        b.pos.x<50 &&//l paddle x-axis
                        b.pos.y>(p[0].pos.y)&&//top paddle y axis
-                       b.pos.y<(p[0].pos.y*2);//bottom paddle y axis 
+                       b.pos.y<((p[0].pos.y*2)-50);//bottom paddle y axis 
 
   boolean ballCollidesR=b.pos.x<(p[1].pos.x-s)&&
                         b.pos.x>950 &&//r paddle x-axis
                         b.pos.y>(p[0].pos.y)&&//top paddle y axis
-                        b.pos.y<(p[0].pos.y*2);//bottom paddle y axis     
+                        b.pos.y<((p[0].pos.y*2)-70);//bottom paddle y axis     
   pos.add(heading);
   for(int i=0;i<p.length;i++){
     if(ballCollidesL){
         println("HIT!");
         b.pos.x=80;
-        b.heading.x*=-1;
+        b.heading.x*=-1.5;
+        b.heading.y*=-1.5;
         gs.score++;
         break;
       }
      if(ballCollidesR){
         println("HIT!");
         b.pos.x=950;
-        b.heading.x*=-1;
+        b.heading.x*=-1.5;
+        b.heading.y*=-1.5;
         gs.score++;
         break;
       }
