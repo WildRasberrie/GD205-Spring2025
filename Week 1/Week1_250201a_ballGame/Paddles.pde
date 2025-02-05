@@ -13,8 +13,8 @@ Paddles(float x, float y){
 
 //METHODS
 void display (){
-  fill(0);//fill is black
-  rect(pos.x,pos.y,40,200);//L-side Paddle 
+  paddle1();//L-side Paddle  
+  paddle2();//R-side Paddle
 }
 
 void update(){
@@ -34,7 +34,14 @@ void update(){
   }
   pos.add(PVector.mult(heading,speed));
 }
-    
+   void paddle1(){
+      fill(0);//fill is black
+      rect(pos.x,b.pos.y-150,40,200);//L-side Paddle
+   }
+   void paddle2(){
+     fill(0);//fill is black
+     rect(pos.x+(width-35),pos.y,40,200);//R-side Paddle
+   }
    void ButtonPressed(){
      if (key == 'w'||key=='W' || (key==CODED && keyCode ==UP)){
           pos.y-=5;
