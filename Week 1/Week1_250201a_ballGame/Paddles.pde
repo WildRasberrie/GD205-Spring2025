@@ -48,6 +48,6 @@ void update(){
       }
       if (key == 's'||key=='S' || (key==CODED && keyCode ==DOWN)){
           pos.y+=max(5,0);
-      }     
+      }
    }
 }

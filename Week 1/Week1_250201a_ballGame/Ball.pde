@@ -58,7 +58,17 @@ void update(){
   if(b.heading.x > maxSpeed){
     b.heading.x=maxSpeed;
     b.heading.y=maxSpeed;
-    
+       //Bounce off borders//
+    if (b.pos.y>(height)){//BOTTOM BARRIER
+      //println("BOTTOM BARRIER WORKING!");
+      b.pos.y=(height);
+      b.heading.y*=-1;
+    }
+    if (b.pos.y<100){//TOP BARRIER
+      //println("TOP BARRIER WORKING!");
+      b.pos.y=100;
+      b.heading.y*=-1;
+    }
     }
     println("Ball POS y "+b.pos.y+">   Paddle POS L y "+(p.pos.y-75) +"  < "+(p.pos.y+800));
   }  

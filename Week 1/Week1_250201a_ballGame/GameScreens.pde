@@ -6,14 +6,10 @@ class GameScreens{
   int screen,score,score2,hearts;
   Timer timer;
   int time=1000;//1 secs timer
-  boolean start=false;
-  boolean game=false;
-  boolean end=false;
   //CONSTRUCTORS
   GameScreens(float x, float y){
     pos= new PVector(x,y);
     ballPOS= new PVector (b.pos.x,b.pos.y);
-    screen=0;
     score=0;
     score2=0;
     hearts=3;
@@ -24,29 +20,32 @@ class GameScreens{
     timer= new Timer(time);//1 secs in millis 
    }
   //METHODS
-  void update(){
+  void display(){
+    buttonPressed();
     if (screen==0){
-      start=true;
-      if(start){
-        loadingScreen();
-        backgroundMusic.loop();
-      }
+      loadingScreen();
     }
-        if (key==CODED){
-          if(keyCode==ENTER){
-          start=false;
-          println("enter!");
-          selectSound.play();
-          game=true;
-       }
-     }
-    if(game){
-        gameScreen();
+    if(screen==1){
+      gameScreen();
     }
-    if (end){
+    if(screen==2){
       endGame();
     }
-    println("start:"+start);
+  }
+  void update(){
+    if (frameCount>1){
+      loadingScreen();
+    }
+    if (screen==0){
+      loadingScreen();
+    }
+    if(screen==1){
+        gameScreen();
+    }
+    if (screen==2){
+      endGame();
+    }
+    println("playerControl:"+playerControl);
   }
   
   void scoreDisplay(){
@@ -77,7 +76,7 @@ class GameScreens{
       heart3();
     }
     if (hearts == 0){
-      end=true;
+      screen=2;
     }
   }
   
@@ -133,7 +132,6 @@ class GameScreens{
     }
   }
   void endGame(){
-    end=true;
     endGameSound.play();
     resetMatrix();
     screen=2;
@@ -146,7 +144,15 @@ class GameScreens{
     text ("Press 'R' to reset game",width/2.0,height/2.0+50); 
   }
   void resetGame(){
-      game=true;
       screen=1;
     }
+  void buttonPressed(){
+    if (key==CODED &&keyCode==ENTER){
+      println("ENTER");
+      screen=1; 
+     }
+     if(key=='r'||key=='R'){
+       resetGame();
+     }
+  }
 }

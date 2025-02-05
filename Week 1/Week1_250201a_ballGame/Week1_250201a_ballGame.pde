@@ -13,12 +13,14 @@ void setup (){
   size(1000,1000);//set canvas size
   noStroke();
   noSmooth();
-  noLoop();
+  // sound effects from Pixabay 
+  //(AUTHORS: freesound_community, SergeQuadrado, floraphonic,Make_More_Sound)
   bounceSound=new SoundFile(this, "jump-sound.wav");
   loseHealthSound=new SoundFile(this, "action-negative.wav");
   endGameSound=new SoundFile(this, "game-lose-sound.wav");
   selectSound=new SoundFile(this, "decide.wav");
   backgroundMusic=new SoundFile(this, "bigbeatloop.mp3");
+  backgroundMusic.loop();
   p= new Paddles(0,height/2.0);
   b= new Ball (random(width),random(height),35);
   gs= new GameScreens(width,height);
@@ -29,17 +31,7 @@ void setup (){
 }
 
 void draw(){
-   //Bounce off borders
-    if (b.pos.y>(height)){//BOTTOM BARRIER
-      //println("BOTTOM BARRIER WORKING!");
-      b.pos.y=(height);
-      b.heading.y*=-1;
-    }
-    if (b.pos.y<100){//TOP BARRIER
-      //println("TOP BARRIER WORKING!");
-      b.pos.y=100;
-      b.heading.y*=-1;
-    }
+  gs.display();
   gs.update();
   if (screen==1){
     b.display();
