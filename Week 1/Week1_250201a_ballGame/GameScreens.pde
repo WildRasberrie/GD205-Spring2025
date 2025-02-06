@@ -24,7 +24,7 @@ class GameScreens{
   void display(){
     if (screen==0){
       loadingScreen();
-      buttonPressed();
+      keyTyped();
     }
     if(screen==1){
       gameScreen();
@@ -35,7 +35,7 @@ class GameScreens{
   }
   void update(){
     if (screen==0){
-      buttonPressed();
+      keyTyped();
       loadingScreen();
     }else if(screen==1){
         gameScreen();
@@ -77,75 +77,104 @@ class GameScreens{
     }
   }
   
-  void heart1 (){image(heart,width-165,70);}
-  void heart2 (){image(heart,width-125,70);}
-  void heart3 (){image(heart,width-85,70);}
+  void heart1 (){image(heart,width-225,70);}
+  void heart2 (){image(heart,width-185,70);}
+  void heart3 (){image(heart,width-145,70);}
   
   void loadingScreen(){
-    screen=0;
-    background(0);
-    fill(255);//white fill
-    textAlign(CENTER);
-    textFont(sourceC);
-    text ("PONG",width/2.0,height/2.0);
-    textFont(courier);
-    text ("(Student Rendition)",width/2.0,height/2.0+50); 
-    textFont(courier2);
-    text ("Press UP to Start!",width/2.0,height/2.0+200);
+    switch(screen){
+      case 0:
+        screen=0;
+        background(0);
+        fill(255);//white fill
+        textAlign(CENTER);
+        textFont(sourceC);
+        text ("PONG",width/2.0,height/2.0);
+        textFont(courier);
+        text ("(Student Rendition)",width/2.0,height/2.0+50); 
+        textFont(courier2);
+        fill(#9BF7FF);//light blue
+        text ("Press \t \t \t to Start!",width/2.0,height/2.0+200);
+        upArrow();
+        break;
+    }
+  }
+  void upArrow(){
+    pushMatrix();
+    scale(0.75);
+    image(up,width/1.9,height/2.0+347);
+    popMatrix();
+    resetMatrix();
   }
   void gameScreen(){
-     screen=1;
-     background(180);
-     for (int i = 0; i < 1000; i = i+33) {
-      stroke(0);
-      strokeWeight (18);
-      line(473, i, 480, i);
-    }
-    noStroke();
-    scoreDisplay();
-    heartsDisplay();
-    boolean offScreenR=b.pos.x>width+50;
-    boolean offScreenL=b.pos.x<0;
-    if(offScreenR){
-      b.pos.x=random(width);
-      b.pos.y=random(height);
-      loseHealthSound.play();
-      hearts--;
-    }
-    if (offScreenL){
-      timer.start();
-      textSize(100);
-      textAlign(CENTER);
-      fill(255);
-      rect(width/2-250,height/2-100,
-           width/2,height/2-350);
-      fill(0);
-      rect(width/2-245,height/2-95,
-           width/2-5,height/2-345);
-      fill(#D3D63A);//Yellow
-      text("NICE ONE!",width/2,height/2);
-      if (timer.isFinished()){
-      draw();
-      }
+     switch(screen){
+        case 1:
+          background(#8CE3EA);
+          pushMatrix();
+          scale(2.0);
+          image(clearClouds,0,-70);
+          image(clearClouds,0,200);
+          noClip();
+          popMatrix();
+          resetMatrix();
+         for (int i = 0; i < 1000; i = i+33) {
+          stroke(0);
+          strokeWeight (18);
+          line(473, i, 480, i);
+        }
+        noStroke();
+        scoreDisplay();
+        heartsDisplay();
+        boolean offScreenR=b.pos.x>width+50;
+        if(offScreenR){
+          b.pos.x=random(width);
+          b.pos.y=random(height);
+          loseHealthSound.play();
+          hearts--;
+        }
     }
   }
+  
   void endGame(){
-    resetMatrix();
-    screen=2;
-    background(0);
-    fill(255);//white fill
-    textFont(sourceC);
-    textAlign(CENTER);
-    text ("YOU LOSE!",width/2.0,height/2.0);
-    textFont(courier2);
-    text ("Press UP to reset game",width/2.0,height/2.0+50); 
-    buttonPressed();
+    switch(screen){
+     case 2:
+        resetMatrix();
+        screen=2;
+        background(0);
+        fill(255);//white fill
+        textFont(sourceC);
+        textAlign(CENTER);
+        text ("YOU LOSE!",width/2.0,height/2.0);
+        textFont(courier2);
+        text ("Press \t \t \t to reset game",width/1.8,height/2.0+200);
+        upArrow();
+        keyTyped();
+        break;
+    }
   }
-  void buttonPressed(){
+  void resetGame(){
+    switch(screen){
+      case 1:
+        score=0;
+        score2=0;
+        hearts=3;
+        p.display();
+        p.update();
+        b.display();
+        b.update();
+        if(hearts==0){
+          screen=2;
+        break;
+    }
+    }
+  }
+    
+  void keyTyped(){
     if (key==CODED &&keyCode==UP){
       println("UP");
+      screen=1;
       selectSound.play();
-      screen=1; 
+      resetGame();
      }
   }
 }
