@@ -3,7 +3,7 @@ class GameScreens{
   PFont sourceC,courier,courier2;
   PImage heart;
   PVector pos, ballPOS;
-  int screen,score,score2,hearts;
+  int screen,score,score2,hearts,highscore;
   Timer timer;
   int time=1000;//1 secs timer
   //CONSTRUCTORS
@@ -12,6 +12,7 @@ class GameScreens{
     ballPOS= new PVector (b.pos.x,b.pos.y);
     score=0;
     score2=0;
+    highscore=score;
     screen=0;
     hearts=3;
     heart= loadImage("Pixel Heart.png");//Art By Nicole Marie T
@@ -118,8 +119,9 @@ class GameScreens{
           popMatrix();
           resetMatrix();
          for (int i = 0; i < 1000; i = i+33) {
-          stroke(0);
+          strokeCap(SQUARE);
           strokeWeight (18);
+          stroke(0);
           line(473, i, 480, i);
         }
         noStroke();
@@ -145,13 +147,16 @@ class GameScreens{
         textFont(sourceC);
         textAlign(CENTER);
         text ("YOU LOSE!",width/2.0,height/2.0);
+        textFont(courier);
+        text("High Score:"+highscore,width/2.0,height/2.0+100);
         textFont(courier2);
         text ("Press \t \t \t to reset game",width/1.8,height/2.0+200);
         upArrow();
         keyTyped();
         break;
+      }
     }
-  }
+
   void resetGame(){
     switch(screen){
       case 1:
@@ -170,8 +175,8 @@ class GameScreens{
   }
     
   void keyTyped(){
-    if (key==CODED &&keyCode==UP){
-      println("UP");
+    if (key==CODED &&keyCode==RIGHT){
+      println("RIGHT");
       screen=1;
       selectSound.play();
       resetGame();

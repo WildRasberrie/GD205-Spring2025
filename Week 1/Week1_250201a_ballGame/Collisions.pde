@@ -28,10 +28,10 @@ class Collisions{
    if(ballCollidesL){
         println("L HIT!");
         bounceSound.play();
-        b.pos.x=80;
+        b.pos.x=100;
         b.pos.y=(b.pos.y+10);
-        b.heading.x*=-1.2;
-        b.heading.y*=-1.2;
+        b.heading.x*=+1.2;
+        b.heading.y*=+1.2;
         b.heading=PVector.random2D().mult(10);
         gs.score2++;  
          if(b.heading.x>5.0 && b.heading.x<b.maxSpeed){
@@ -42,7 +42,7 @@ class Collisions{
     if(ballCollidesR){
         println("R HIT!");
         bounceSound.play();
-        b.pos.x=width-80;
+        b.pos.x=width-100;
         b.pos.y=(b.pos.y+10);
         b.heading.x*=-1.2;
         b.heading.y*=-1.2;

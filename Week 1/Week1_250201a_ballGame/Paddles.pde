@@ -39,7 +39,7 @@ void update(){
       rect(pos.x,b.pos.y-150,40,200);//L-side Paddle
    }
    void paddle2(){
-     fill(0);//fill is black
+     fill(0,0,255);//fill is blue
      rect(pos.x+(width-35),pos.y,40,200);//R-side Paddle
    }
    void ButtonPressed(){
