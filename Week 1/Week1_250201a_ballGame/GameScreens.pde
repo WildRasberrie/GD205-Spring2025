@@ -6,6 +6,7 @@ class GameScreens{
   int screen,score,score2,hearts,highscore;
   Timer timer;
   int time=1000;//1 secs timer
+  float pulse=(sin(0.4 * frameCount));
   //CONSTRUCTORS
   GameScreens(float x, float y){
     pos= new PVector(x,y);
@@ -43,7 +44,6 @@ class GameScreens{
     }else if (screen==2){
       endGame();
     }
-    println("playerControl:"+playerControl);
   }
   
   void scoreDisplay(){
@@ -75,6 +75,7 @@ class GameScreens{
     }
     if (hearts == 0){
       screen=2;
+      endGameSound.play();
     }
   }
   
@@ -90,7 +91,7 @@ class GameScreens{
         fill(255);//white fill
         textAlign(CENTER);
         textFont(sourceC);
-        text ("PONG",width/2.0,height/2.0);
+        text ("PONG",width/2.0,height/2.0+pulse);
         textFont(courier);
         text ("(Student Rendition)",width/2.0,height/2.0+50); 
         textFont(courier2);
@@ -143,19 +144,25 @@ class GameScreens{
         resetMatrix();
         screen=2;
         background(0);
+        fill(#46FF4D);
+        circle(width/2.0,height/2.0-225,100);
+        image(gameOverBall,width/2.0-65,height/2.0-245);
         fill(255);//white fill
         textFont(sourceC);
         textAlign(CENTER);
         text ("YOU LOSE!",width/2.0,height/2.0);
-        textFont(courier);
-        text("High Score:"+highscore,width/2.0,height/2.0+100);
         textFont(courier2);
         text ("Press \t \t \t to reset game",width/1.8,height/2.0+200);
         upArrow();
+        textFont(courier);
+        float posx =width/2.0;
+        
+        text("Try Again?",posx,height/2.0+pulse+100);
         keyTyped();
         break;
       }
     }
+    
 
   void resetGame(){
     switch(screen){
@@ -170,7 +177,7 @@ class GameScreens{
         if(hearts==0){
           screen=2;
         break;
-    }
+      }
     }
   }
     

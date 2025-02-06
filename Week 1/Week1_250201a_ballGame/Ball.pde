@@ -8,7 +8,7 @@ class Ball{
 
 Ball(float x,float y,float s){
   pos = new PVector(x,y);
-  heading = PVector.random2D().mult(5);//setting random heading
+  heading = PVector.fromAngle(-TAU/6.0).mult(5);//setting random heading
   size=s;
   maxSpeed=8.5;
   s=100;

@@ -14,7 +14,7 @@ class Collisions{
     ballCollision();
     wallCollision();
     println("Ball Speed"+(b.heading.x)+","+(b.heading.y)+"Max Speed"+b.maxSpeed);
-
+    image(fire,-b.pos.x-20,b.pos.y);
   }
   void ballCollision(){
    boolean ballCollidesL=b.pos.x>=-3&&
@@ -30,11 +30,10 @@ class Collisions{
         bounceSound.play();
         b.pos.x=100;
         b.pos.y=(b.pos.y+10);
-        b.heading.x*=+1.2;
-        b.heading.y*=+1.2;
-        b.heading=PVector.random2D().mult(10);
+        b.heading.x*=-1.2;
+        b.heading.y*=-1.2;
         gs.score2++;  
-         if(b.heading.x>5.0 && b.heading.x<b.maxSpeed){
+         if(b.heading.x>5.0){
           b.display();
           image(fire,-b.pos.x-20,b.pos.y);
          }
@@ -44,11 +43,10 @@ class Collisions{
         bounceSound.play();
         b.pos.x=width-100;
         b.pos.y=(b.pos.y+10);
-        b.heading.x*=-1.2;
+        b.heading.x=random(4,8);
         b.heading.y*=-1.2;
-        b.heading=PVector.random2D().mult(10);
         gs.score++; 
-        if(b.heading.x<-5.0 && b.heading.x>=-b.maxSpeed){
+        if(b.heading.x<-5.0){
           b.display();
           image(fire,-b.pos.x-20,b.pos.y);
        }

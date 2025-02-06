@@ -2,7 +2,7 @@ import gifAnimation.*;
 import processing.sound.*;
 SoundFile bounceSound,loseHealthSound,
           endGameSound,selectSound,backgroundMusic;
-Gif fire,up,clearClouds;
+Gif fire,up,clearClouds,gameOverBall;
 Paddles p;
 Ball b;
 GameScreens gs;
@@ -19,14 +19,18 @@ void setup (){
   s=100;
   r=20;
   testX=random(width);
-  testY=random(height);
+  testY=random(max(height/2.0,0));
   //GIF from Pixabay (AUTHOR:YitingET)
   fire= new Gif(this,"fire.gif");
   fire.loop();
+  //GIF from Pixabay (AUTHOR:YitingET)
   up= new Gif(this,"up-arrow.gif");
   up.loop();
+  //GIF from Pixabay (AUTHOR:MXJfiles)
   clearClouds=new Gif (this,"Clearclouds.gif");
   clearClouds.loop();
+  gameOverBall=new Gif (this,"gameOverBall.gif");
+  gameOverBall.loop();
   // sound effects from Pixabay 
   //(AUTHORS: freesound_community,floraphonic, Ivan Luzan,Make_More_Sound)
   endGameSound=new SoundFile(this, "game-lose-sound.wav");
@@ -38,25 +42,20 @@ void setup (){
   p= new Paddles(0,height/2.0);
   b= new Ball (testX,testY,35);
   gs= new GameScreens(width,height);
-  c=new Collisions(testX,testY);
-  switch(gs.screen){
-    case 2:
-      endGameSound.play();
-    }
+  c=new Collisions(width,height);
 }
 void draw(){
   gs.display();
   gs.update();
-  switch (gs.screen){
-  case 1:
+  if (gs.screen==1){
     c.display();
     c.update();
     b.display();
     b.update();
     p.display();
     p.update();
-    break;
-  case 2:
+  }
+  if(gs.screen==2){
   gs.endGame();
  }
  }
