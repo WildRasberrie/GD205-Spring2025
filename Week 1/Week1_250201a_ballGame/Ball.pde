@@ -10,7 +10,7 @@ Ball(float x,float y,float s){
   pos = new PVector(x,y);
   heading = PVector.random2D().mult(5);//setting random heading
   size=s;
-  maxSpeed=10.0;
+  maxSpeed=8.0;
   s=100;
   r=20;
   testX=pos.x+r;
@@ -26,50 +26,60 @@ void display(){
 }
 
 void update(){
+ pos.add(heading);
  boolean ballUnder0=b.pos.x<0;
  boolean ballCollidesL=b.pos.x>=-3&&
-                       b.pos.x<50 &&//l paddle x-axis
-                       b.pos.y>=(p.pos.y-150)&&//top paddle y axis
-                       b.pos.y<=((p.pos.y)+500);//bottom paddle y axis 
+                       b.pos.x<100 &&//l paddle x-axis
+                       b.pos.y>=(p.pos.y-50)&&//top paddle y axis
+                       b.pos.y<=((p.pos.y)+700);//bottom paddle y axis 
 
   boolean ballCollidesR=b.pos.x>(p.pos.x+width-50) && b.pos.x<width &&//r paddle x-axis
-                        b.pos.y>=(p.pos.y-100)&&//top paddle y axis
-                        b.pos.y<=((p.pos.y)+300);//bottom paddle y axis    
-  pos.add(heading);
-  if(ballCollidesL){
-      println("HIT!");
-      bounceSound.play();
-      b.pos.x=80;
-      b.heading.x*=-1.5;
-      b.heading.y*=-1.5;
-      gs.score2++;
+                        b.pos.y>=(p.pos.y-50)&&//top paddle y axis
+                        b.pos.y<=((p.pos.y)+250);//bottom paddle y axis 
+   if (gs.screen==1){
+     if(b.heading.x > maxSpeed){
+      b.heading.x=maxSpeed;
+      b.heading.y=maxSpeed;
+      if (b.pos.y>(height)){//BOTTOM BARRIER
+        //println("BOTTOM BARRIER WORKING!");
+        b.heading.y*=-1;
+      }
+      if (b.pos.y<300){//TOP BARRIER
+        //println("TOP BARRIER WORKING!");
+        b.pos.y=300;
+        b.heading.y*=-1;
+      }
+     }
+    if(ballCollidesL){
+        println("HIT!");
+        bounceSound.play();
+        b.pos.x=100;
+        b.heading.x*=-1.25;
+        b.heading.y*=random(-5);
+        gs.score2++;
+        if(b.heading.x>5.0 && b.heading.x<maxSpeed ||
+          b.heading.y>5.0 && b.heading.y<maxSpeed){
+          b.display();
+          image(fire,-b.pos.x-20,b.pos.y);
+       }
+      }
+     if(ballCollidesR){
+        println("HIT!");
+        bounceSound.play();
+        b.pos.x=950;
+        b.heading.x*=-1.25;
+        b.heading.y*=random(-5);
+        gs.score++; 
+        if(b.heading.x>5.0 && b.heading.x<maxSpeed ||
+           b.heading.y>5.0 && b.heading.y<maxSpeed){
+           b.display();
+           image(fire,b.pos.x-20,b.pos.y);
+       }
+      }
+    if (ballUnder0){
+      b.pos.x=random(width);    
     }
-   if(ballCollidesR){
-      println("HIT!");
-      bounceSound.play();
-      b.pos.x=950;
-      b.heading.x*=-1.5;
-      b.heading.y*=-2.5;
-      gs.score++;
-    }
-  if (ballUnder0){
-    b.pos.x=0.0;    
-  }
-  if(b.heading.x > maxSpeed){
-    b.heading.x=maxSpeed;
-    b.heading.y=maxSpeed;
-       //Bounce off borders//
-    if (b.pos.y>(height)){//BOTTOM BARRIER
-      //println("BOTTOM BARRIER WORKING!");
-      b.pos.y=(height);
-      b.heading.y*=-1;
-    }
-    if (b.pos.y<100){//TOP BARRIER
-      //println("TOP BARRIER WORKING!");
-      b.pos.y=100;
-      b.heading.y*=-1;
-    }
-    }
-    println("Ball POS y "+b.pos.y+">   Paddle POS L y "+(p.pos.y-75) +"  < "+(p.pos.y+800));
+ }
+    println("Ball POS x "+pos.x+">   Paddle POS x "+(p.pos.x) +"  < "+(p.pos.x+100));
   }  
 }

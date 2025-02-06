@@ -12,6 +12,7 @@ class GameScreens{
     ballPOS= new PVector (b.pos.x,b.pos.y);
     score=0;
     score2=0;
+    screen=0;
     hearts=3;
     heart= loadImage("Pixel Heart.png");//Art By Nicole Marie T
     sourceC= loadFont("SourceCodePro-ExtraLight-140.vlw");
@@ -21,9 +22,9 @@ class GameScreens{
    }
   //METHODS
   void display(){
-    buttonPressed();
     if (screen==0){
       loadingScreen();
+      buttonPressed();
     }
     if(screen==1){
       gameScreen();
@@ -33,16 +34,12 @@ class GameScreens{
     }
   }
   void update(){
-    if (frameCount>1){
-      loadingScreen();
-    }
     if (screen==0){
+      buttonPressed();
       loadingScreen();
-    }
-    if(screen==1){
+    }else if(screen==1){
         gameScreen();
-    }
-    if (screen==2){
+    }else if (screen==2){
       endGame();
     }
     println("playerControl:"+playerControl);
@@ -94,7 +91,7 @@ class GameScreens{
     textFont(courier);
     text ("(Student Rendition)",width/2.0,height/2.0+50); 
     textFont(courier2);
-    text ("Press ENTER to Start!",width/2.0,height/2.0+200);
+    text ("Press UP to Start!",width/2.0,height/2.0+200);
   }
   void gameScreen(){
      screen=1;
@@ -107,10 +104,11 @@ class GameScreens{
     noStroke();
     scoreDisplay();
     heartsDisplay();
-    boolean offScreenR=b.pos.x>width+100;
+    boolean offScreenR=b.pos.x>width+50;
     boolean offScreenL=b.pos.x<0;
     if(offScreenR){
       b.pos.x=random(width);
+      b.pos.y=random(height);
       loseHealthSound.play();
       hearts--;
     }
@@ -127,32 +125,27 @@ class GameScreens{
       fill(#D3D63A);//Yellow
       text("NICE ONE!",width/2,height/2);
       if (timer.isFinished()){
-    
+      draw();
       }
     }
   }
   void endGame(){
-    endGameSound.play();
     resetMatrix();
     screen=2;
     background(0);
     fill(255);//white fill
-    textSize(180);
+    textFont(sourceC);
     textAlign(CENTER);
     text ("YOU LOSE!",width/2.0,height/2.0);
-    textSize(50);
-    text ("Press 'R' to reset game",width/2.0,height/2.0+50); 
+    textFont(courier2);
+    text ("Press UP to reset game",width/2.0,height/2.0+50); 
+    buttonPressed();
   }
-  void resetGame(){
-      screen=1;
-    }
   void buttonPressed(){
-    if (key==CODED &&keyCode==ENTER){
-      println("ENTER");
+    if (key==CODED &&keyCode==UP){
+      println("UP");
+      selectSound.play();
       screen=1; 
-     }
-     if(key=='r'||key=='R'){
-       resetGame();
      }
   }
 }
