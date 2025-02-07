@@ -20,7 +20,7 @@ class Collisions{
    boolean ballCollidesL=b.pos.x>=-3&&
                        b.pos.x<=50&&//l paddle x-axis
                        b.pos.y>=(b.pos.y-50)&&//top paddle y axis
-                       b.pos.y<=(height-b.pos.y);//bottom paddle y axis 
+                       b.pos.y<=(b.pos.y+700);//bottom paddle y axis 
 
    boolean ballCollidesR=b.pos.x>(width-50) && b.pos.x<width &&//r paddle x-axis
                         b.pos.y>=(p.pos.y-50)&&//top paddle y axis
@@ -43,7 +43,7 @@ class Collisions{
         bounceSound.play();
         b.pos.x=width-100;
         b.pos.y=(b.pos.y+10);
-        b.heading.x=random(4,8);
+        b.heading.x*=-1.2;
         b.heading.y*=-1.2;
         gs.score++; 
         if(b.heading.x<-5.0){

@@ -40,7 +40,7 @@ void setup (){
   backgroundMusic=new SoundFile(this, "bigbeatloop.mp3");
   backgroundMusic.loop();
   p= new Paddles(0,height/2.0);
-  b= new Ball (testX,testY,35);
+  b= new Ball (testX,testY,37);
   gs= new GameScreens(width,height);
   c=new Collisions(width,height);
 }

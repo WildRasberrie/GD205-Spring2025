@@ -8,7 +8,7 @@ class Ball{
 
 Ball(float x,float y,float s){
   pos = new PVector(x,y);
-  heading = PVector.fromAngle(-TAU/6.0).mult(5);//setting random heading
+  heading = PVector.fromAngle(-TAU/18.0).mult(5);//setting random heading
   size=s;
   maxSpeed=8.5;
   s=100;
@@ -21,8 +21,11 @@ Ball(float x,float y,float s){
 void display(){
   //Pong Ball
   resetMatrix();
-  fill(0);
+  fill(#46FF4D);
+  stroke(0);
+  strokeWeight(5);
   circle(pos.x,pos.y,size);
+  noStroke();
 }
 
 void update(){

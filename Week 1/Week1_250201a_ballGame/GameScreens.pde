@@ -50,6 +50,7 @@ class GameScreens{
   void scoreDisplay(){
   resetMatrix();
   pushMatrix();
+  scale(1.0);
   //PLAYER 1 SCORE
   fill (0,0,255);//blue
   textSize(36);
@@ -62,6 +63,7 @@ class GameScreens{
   }
   
   void heartsDisplay (){
+    scale(1.25); 
     if(hearts>=3&&hearts>2){
       heart1();
       heart2();
@@ -80,9 +82,9 @@ class GameScreens{
     }
   }
   
-  void heart1 (){image(heart,width-225,70);}
-  void heart2 (){image(heart,width-185,70);}
-  void heart3 (){image(heart,width-145,70);}
+  void heart1 (){image(heart,width-400,70);}
+  void heart2 (){image(heart,width-350,70);}
+  void heart3 (){image(heart,width-300,70);}
   
   void loadingScreen(){
     switch(screen){
@@ -150,10 +152,9 @@ class GameScreens{
         screen=2;
         background(0);
         fill(#46FF4D);
-        float pulse2=(sin(0.08*frameCount)*10);
-        pulse=(sin(0.05*frameCount)*20);
-        circle(width/2.0,height/2.0-225+pulse,125);
-        image(gameOverBall,width/2.0-30,height/2.0-260+pulse);
+        float pulse2=(sin(0.06*frameCount)*5);
+        pulse=(sin(0.025*frameCount)*20);
+        circle(width/2.0,height/2.0-225,125+pulse2);
         fill(255);//white fill
         textFont(sourceC);
         textAlign(CENTER);
@@ -165,6 +166,8 @@ class GameScreens{
         float posx =width/2.0;
         text("Try Again?",posx,height/2.0+100+pulse);
         keyTyped();
+        scale(0.90);
+        image(gameOverBall,width/2.0+22,height/2.0-220);
         break;
       }
     }
