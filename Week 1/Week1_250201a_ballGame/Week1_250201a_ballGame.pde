@@ -57,7 +57,7 @@ void draw(){
   }
   if(gs.screen==2){
   gs.endGame();
- }
+  }
  }
  
  

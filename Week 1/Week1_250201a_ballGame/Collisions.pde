@@ -13,8 +13,8 @@ class Collisions{
   void update(){
     ballCollision();
     wallCollision();
-    println("Ball Speed"+(b.heading.x)+","+(b.heading.y)+"Max Speed"+b.maxSpeed);
-    image(fire,-b.pos.x-20,b.pos.y);
+    //println("Ball Speed"+(b.heading.x)+","+(b.heading.y)+"Max Speed"+b.maxSpeed);
+    //image(fire,-b.pos.x-20,b.pos.y);
   }
   void ballCollision(){
    boolean ballCollidesL=b.pos.x>=-3&&
@@ -32,10 +32,10 @@ class Collisions{
         b.heading.x*=-1.2;
         b.heading.y*=-1.2;
         gs.score2++;  
-         if(b.heading.x>5.0){
-          b.display();
-          image(fire,-b.pos.x-20,b.pos.y);
-         }
+         //if(b.heading.x>5.0){
+         // b.display();
+         // image(fire,-b.pos.x-20,b.pos.y);
+         //}
        }
     if(ballCollidesR){
         println("R HIT!");
@@ -44,10 +44,10 @@ class Collisions{
         b.heading.x*=-1.2;
         b.heading.y*=-1.2;
         gs.score++; 
-        if(b.heading.x<-5.0){
-          b.display();
-          image(fire,-b.pos.x-20,b.pos.y);
-       }
+        //if(b.heading.x<-5.0){
+        //  b.display();
+        //  image(fire,-b.pos.x-20,b.pos.y);
+       //}
      }
   }
   void wallCollision(){
