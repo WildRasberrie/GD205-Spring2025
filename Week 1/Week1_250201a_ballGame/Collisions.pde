@@ -29,7 +29,6 @@ class Collisions{
         println("L HIT!");
         bounceSound.play();
         b.pos.x=100;
-        b.pos.y=(b.pos.y+10);
         b.heading.x*=-1.2;
         b.heading.y*=-1.2;
         gs.score2++;  
@@ -42,7 +41,6 @@ class Collisions{
         println("R HIT!");
         bounceSound.play();
         b.pos.x=width-100;
-        b.pos.y=(b.pos.y+10);
         b.heading.x*=-1.2;
         b.heading.y*=-1.2;
         gs.score++; 
