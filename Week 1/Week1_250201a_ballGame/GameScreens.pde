@@ -6,7 +6,8 @@ class GameScreens{
   int screen,score,score2,hearts,highscore;
   Timer timer;
   int time=1000;//1 secs timer
-  float pulse=(sin(0.4 * frameCount));
+  float posx=0;
+  float pulse;
   //CONSTRUCTORS
   GameScreens(float x, float y){
     pos= new PVector(x,y);
@@ -91,7 +92,8 @@ class GameScreens{
         fill(255);//white fill
         textAlign(CENTER);
         textFont(sourceC);
-        text ("PONG",width/2.0,height/2.0+pulse);
+        pulse=(sin(0.0625*frameCount)*10);
+        text ("PONG",width/2.0-pulse,(height/2.0));
         textFont(courier);
         text ("(Student Rendition)",width/2.0,height/2.0+50); 
         textFont(courier2);
@@ -113,9 +115,12 @@ class GameScreens{
         case 1:
           background(#8CE3EA);
           pushMatrix();
-          scale(2.0);
-          image(clearClouds,0,-70);
+          scale(1.0);
+          image(clearClouds,0,50);
+          scale(1.5);
           image(clearClouds,0,200);
+          scale(1.25);
+          image(clearClouds,0,450);
           noClip();
           popMatrix();
           resetMatrix();
@@ -145,8 +150,10 @@ class GameScreens{
         screen=2;
         background(0);
         fill(#46FF4D);
-        circle(width/2.0,height/2.0-225,100);
-        image(gameOverBall,width/2.0-65,height/2.0-245);
+        float pulse2=(sin(0.08*frameCount)*10);
+        pulse=(sin(0.05*frameCount)*20);
+        circle(width/2.0,height/2.0-225+pulse,125);
+        image(gameOverBall,width/2.0-30,height/2.0-260+pulse);
         fill(255);//white fill
         textFont(sourceC);
         textAlign(CENTER);
@@ -156,8 +163,7 @@ class GameScreens{
         upArrow();
         textFont(courier);
         float posx =width/2.0;
-        
-        text("Try Again?",posx,height/2.0+pulse+100);
+        text("Try Again?",posx,height/2.0+100+pulse);
         keyTyped();
         break;
       }
