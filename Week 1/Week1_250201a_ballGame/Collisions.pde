@@ -55,12 +55,12 @@ class Collisions{
       if (b.pos.y>(height)){//BOTTOM BARRIER
           //println("BOTTOM BARRIER WORKING!");
           b.pos.y=height;
-          b.heading.y*=-1.0;
+          b.heading.y*=-1.2;
         }
         if (b.pos.y<0){//TOP BARRIER
           //println("TOP BARRIER WORKING!");
           b.pos.y=0;
-          b.heading.y*=-1.0;
+          b.heading.y*=-1.2;
         }
      }
   }

@@ -167,7 +167,7 @@ class GameScreens{
         text("Try Again?",posx,height/2.0+100+pulse);
         keyTyped();
         scale(0.90);
-        image(gameOverBall,width/2.0+22,height/2.0-220);
+        image(gameOverBall,width/2.0+24,height/2.0-223);
         break;
       }
     }
