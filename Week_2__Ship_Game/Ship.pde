@@ -1,5 +1,5 @@
 class Ship{
-  Bullet bullet;
+  Bullet[] bullet;
   //PROPERTIES
   PImage ship;
   PVector pos,heading;
@@ -10,16 +10,20 @@ class Ship{
     Ship(float x, float y){
       pos= new PVector (x,y); 
       ship = loadImage("spaceShip.png");  
-      bullet = new Bullet(pos.x,pos.y);
+      bullet = new Bullet[1];
+      for(int i=0;i<bullet.length;i++){
+        bullet[i]= new Bullet(pos.x,pos.y);
+      }
     }
   //METHODS
   void display(){
     shipDisplay();
-    bullet.display();
+    for(int i=0;i<bullet.length;i++){
+      bullet[i].display();
+    }
   }
   void update(){
     buttonPressed();
-    bullet.update();
   }
   void shipDisplay(){
     image(ship,pos.x,pos.y);
@@ -33,6 +37,13 @@ class Ship{
       if (keyPressed==true && 
          (key == 'd'||key=='D' || (key==CODED && keyCode ==RIGHT))){
           pos.x+=3;
-      }
+         }
+      if (keyPressed==true && key==CODED && keyCode==SHIFT){
+        println("SHIFT PRESSED");
+        pos.y-=50;
+        for(int i=0;i<bullet.length;i++){
+          append(bullet[i],s.pos.y);
+        }
+      } 
   } 
 }
