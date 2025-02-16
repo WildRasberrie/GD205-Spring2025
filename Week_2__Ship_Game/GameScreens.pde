@@ -97,22 +97,31 @@ class GameScreens{
   void gameScreen(){
      switch(screen){
         case 1:
+        pushMatrix();
         background(0);
         noStroke();
         stroke(map(millis(),0,1000,0,100)%255);
-        strokeWeight(2);
-        for (int i = 120; i < width; i = i+100) {
-          for (int j = 0; j < height; j = j+100){
-            point(i,j);
+        strokeWeight(random(2,4));
+        for (int i = 0; i < width; i = i+100) {
+          for (int j = 0; j < height; j = j+120){
+            point(i+(cos(frameCount*0.005)*160),j-(sin(frameCount*0.005)*160));
           }
         }
+        strokeWeight(random(3));
+        stroke(map(millis(),0,1000,0,70)%255);
+        for (int i = 20; i < width; i = i+80) {
+          for (int j = 0; j < height; j = j+150){
+            point(i+(cos(frameCount*0.002)*100),j-(sin(frameCount*0.002)*100));
+          }
+        }
+        popMatrix();
+        resetMatrix();
         scoreDisplay();
         spaceLivesDisplay();
         e.display();
         e.update();
         s.display();
         s.update();
-        shoot.display();
         break;
      }
   }

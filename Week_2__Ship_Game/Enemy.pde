@@ -39,10 +39,4 @@ class Enemy{
       pos.x*=-1;
     }
   }
-  void collisions(){
-    if (dist(shoot.pos.x,shoot.pos.y,e.pos.x,e.pos.y)<5){
-      e.pos.x=width+50; 
-      gs.score+=100;
-    }
-  }
 }

@@ -1,4 +1,5 @@
 class Ship{
+  Bullet[] bullet;
   //PROPERTIES
   PImage ship;
   PVector pos,heading;
@@ -11,13 +12,24 @@ class Ship{
     ship = loadImage("spaceShip.png");
     shipPOSX=(pos.x-width/2.0-150);
     shipPOSY=(pos.y-height/2.0+700);  
+    bullet = new Bullet[100];
+    for(int i=0;i<bullet.length;i++){
+      bullet[i]= new Bullet(0,0);
+    }
+    
   }
   //METHODS
   void display(){
     shipDisplay();
+    for(int i =0;i<bullet.length;i++){
+      bullet[i].display();
+    }
   }
   void update(){
     buttonPressed();
+    for(int i =0;i<bullet.length;i++){
+      bullet[i].update();
+    }
   }
   void shipDisplay(){
     image(ship,shipPOSX,shipPOSY);
@@ -33,24 +45,4 @@ class Ship{
           shipPOSX+=3;
       }
   } 
-}
-
-class Shoot extends Ship{
-//PROPERTIES
-PVector pos;
-float motion;
-//CONSTRUCTORS
-  Shoot(float x, float y){
-    super(x,y);
-  }
-//METHODS
-    void display(){
-      stroke(255,0,0);//red
-      strokeWeight(10);
-      line(s.pos.x,(s.pos.y),s.pos.x,(s.pos.y+25));
-       if (keyPressed==true && key==CODED && keyCode==SHIFT){
-        println("SHIFT PRESSED");
-        shoot.pos.y-=10;
-      }
-      }
 }
