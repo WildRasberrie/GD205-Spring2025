@@ -3,14 +3,14 @@ class Bullet{
 PVector pos;
 float motion;
 //CONSTRUCTORS
-  Bullet(float x, float y){
+  Bullet(float x,float y){
     pos= new PVector (x,y);
   }
 //METHODS
     void display(){
       stroke(255,0,0);//red
       strokeWeight(10);
-      line(s.pos.x,s.pos.y,s.pos.x,(s.pos.y+25));
+      line(s.pos.x,s.pos.y+pos.y,s.pos.x,s.pos.y+pos.y+25);
     }
       void update(){
        if (keyPressed==true && key==CODED && keyCode==SHIFT){

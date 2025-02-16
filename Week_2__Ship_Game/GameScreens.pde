@@ -1,16 +1,19 @@
 class GameScreens{
 //PROPERTIES
   PFont sourceC,courier,courier2,redAlert;
-  PImage spaceLife,up;
+  PImage spaceLife,selectArrow;
   PVector pos;
   int screen,score,spaceLives,highscore;
   float posx=0;
   float pulse;
   String[] fontList=PFont.list();
+  float arrowPOSY=height/2.0+145;
+  float arrowPOSX=width/4.0;
   //CONSTRUCTORS
   GameScreens(float x, float y){
     pos= new PVector(x,y);
     score=0;
+    selectArrow=loadImage("selectArrow.png");
     highscore=score;
     screen=0;// set screen to intro
     spaceLives=3;
@@ -84,12 +87,14 @@ class GameScreens{
         textAlign(CENTER);
         textFont(redAlert);
         pulse=(sin(0.0625*frameCount)*10);
-        text ("GALAGA",width/2.0-pulse,(height/2.0));
+        text ("GALAGA",width/2.0-pulse,(height/3.0));
         textSize(36);
-        text ("(Student Rendition)",width/2.0,height/2.0+50); 
+        text ("(Student Rendition)",width/2.0,height/3.0+50); 
         fill(#9BF7FF);//light blue
         textSize(56);
-        text ("Press ENTER to Start!",width/2.0,height/2.0+200);
+        textAlign(LEFT);
+        text ("START\nEXIT GAME",width/2.0-150,height/2.0+200);
+        image(selectArrow,arrowPOSX,arrowPOSY);
         break;
     }
   }
@@ -116,12 +121,12 @@ class GameScreens{
         }
         popMatrix();
         resetMatrix();
-        scoreDisplay();
         spaceLivesDisplay();
         e.display();
         e.update();
         s.display();
         s.update();
+        scoreDisplay();
         break;
      }
   }
@@ -161,10 +166,22 @@ class GameScreens{
     }
   }    
   void keyTyped(){
-    if (key==CODED &&keyCode==RETURN || keyCode==ENTER){
+    if (keyPressed && key==CODED &&keyCode==DOWN){
+      arrowPOSY=height/2.0+215;
+    }
+    if (keyPressed && key==CODED &&keyCode==UP){
+      arrowPOSY=height/2.0+145;
+    }
+    if (key==CODED &&keyCode==RETURN || keyCode==ENTER&&
+        (arrowPOSY==height/2.0+145)){
       println("ENTER PRESSED");
       screen=1;
       resetGame();
+     }
+     if (key==CODED &&keyCode==RETURN || keyCode==ENTER&&
+        (arrowPOSY==height/2.0+215)){
+      println("ENTER PRESSED");
+      exit();
      }
   }
 }

@@ -8,8 +8,7 @@ void setup (){
   e=new Enemy(width,height,1);
   s=new Ship(width,height/2.0);
 }
-void draw (){
-  
+void draw (){ 
   background (0);//black background 
   gs.display();
   gs.update();
