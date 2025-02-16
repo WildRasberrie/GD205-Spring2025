@@ -32,10 +32,6 @@ class Ship{
          (key == 'd'||key=='D' || (key==CODED && keyCode ==RIGHT))){
           shipPOSX+=3;
       }
-      if (keyPressed==true && key==CODED && keyCode==SHIFT){
-        println("SHIFT PRESSED");
-        shoot.display();
-      }
   } 
 }
 
@@ -46,12 +42,15 @@ float motion;
 //CONSTRUCTORS
   Shoot(float x, float y){
     super(x,y);
-    motion = frameCount*0.5;
   }
 //METHODS
     void display(){
       stroke(255,0,0);//red
       strokeWeight(10);
-      line(pos.x,(pos.y)-motion,pos.x,(pos.y+25)-motion); 
+      line(s.pos.x,(s.pos.y),s.pos.x,(s.pos.y+25));
+       if (keyPressed==true && key==CODED && keyCode==SHIFT){
+        println("SHIFT PRESSED");
+        shoot.pos.y-=10;
+      }
       }
 }

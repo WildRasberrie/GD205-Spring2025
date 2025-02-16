@@ -8,9 +8,10 @@ void setup (){
   gs=new GameScreens(width,height);
   e=new Enemy(width,height,1);
   s=new Ship(width,height/2.0);
-  shoot=new Shoot(s.shipPOSX+50,s.shipPOSY);
+  shoot=new Shoot(width,height);
 }
 void draw (){
+  
   background (0);//black background 
   gs.display();
   gs.update();

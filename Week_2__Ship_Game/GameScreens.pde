@@ -3,7 +3,7 @@ class GameScreens{
   PFont sourceC,courier,courier2,redAlert;
   PImage spaceLife,up;
   PVector pos;
-  int screen,score,score2,spaceLives,highscore;
+  int screen,score,spaceLives,highscore;
   float posx=0;
   float pulse;
   String[] fontList=PFont.list();
@@ -11,7 +11,6 @@ class GameScreens{
   GameScreens(float x, float y){
     pos= new PVector(x,y);
     score=0;
-    score2=0;
     highscore=score;
     screen=0;// set screen to intro
     spaceLives=3;
@@ -100,12 +99,20 @@ class GameScreens{
         case 1:
         background(0);
         noStroke();
+        stroke(map(millis(),0,1000,0,100)%255);
+        strokeWeight(2);
+        for (int i = 120; i < width; i = i+100) {
+          for (int j = 0; j < height; j = j+100){
+            point(i,j);
+          }
+        }
         scoreDisplay();
         spaceLivesDisplay();
         e.display();
         e.update();
         s.display();
         s.update();
+        shoot.display();
         break;
      }
   }
@@ -137,15 +144,13 @@ class GameScreens{
     switch(screen){
       case 1:
         score=0;
-        score2=0;
         spaceLives=3;
         if(spaceLives==0){
           screen=2;
       }
       break;
     }
-  }
-    
+  }    
   void keyTyped(){
     if (key==CODED &&keyCode==RETURN || keyCode==ENTER){
       println("ENTER PRESSED");
