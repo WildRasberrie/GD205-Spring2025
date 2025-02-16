@@ -1,11 +1,12 @@
 class GameScreens{
 //PROPERTIES
-  PFont sourceC,courier,courier2;
-  PImage heart,up;
+  PFont sourceC,courier,courier2,redAlert;
+  PImage spaceLife,up;
   PVector pos;
-  int screen,score,score2,hearts,highscore;
+  int screen,score,score2,spaceLives,highscore;
   float posx=0;
   float pulse;
+  String[] fontList=PFont.list();
   //CONSTRUCTORS
   GameScreens(float x, float y){
     pos= new PVector(x,y);
@@ -13,12 +14,9 @@ class GameScreens{
     score2=0;
     highscore=score;
     screen=0;// set screen to intro
-    hearts=3;
-    heart= loadImage("Pixel Heart.png");//Art By Nicole Marie T
-    up= loadImage("up-arrow.gif");//Art By Nicole Marie T
-    sourceC= loadFont("SourceCodePro-ExtraLight-140.vlw");
-    courier= loadFont("CourierNewPS-BoldMT-20.vlw");
-    courier2= loadFont("CourierNewPS-BoldMT-48.vlw");
+    spaceLives=3;
+    spaceLife= loadImage("SpaceLife.png");//(MODIFIED) Original Art By Christopher_Konrad
+    redAlert= createFont(fontList[21],140);
    }
   //METHODS
   void display(){
@@ -45,84 +43,72 @@ class GameScreens{
   }
   
   void scoreDisplay(){
-  resetMatrix();
+  //SCORE
+  fill (255);//white
   pushMatrix();
-  scale(1.0);
-  //PLAYER 1 SCORE
-  fill (0,0,255);//blue
-  textSize(36);
-  text ("Score: " + score,width-170,50);
-  //PLAYER 2 SCORE
-  fill (0);//black
-  textSize(36);
-  text ("Score: " + score2,150,50);
+  scale(0.65);
+  textFont(redAlert);
+  text (score,50,100);
   popMatrix();
+  resetMatrix();
   }
   
-  void heartsDisplay (){
+  void spaceLivesDisplay (){
     scale(1.25); 
-    if(hearts>=3&&hearts>2){
-      heart1();
-      heart2();
-      heart3();
+    if(spaceLives>=3&&spaceLives>2){
+      spaceLife1();
+      spaceLife2();
+      spaceLife3();
     }
-    if (hearts<3&&hearts>=2){
-      heart2();
-      heart3();
+    if (spaceLives<3&&spaceLives>=2){
+      spaceLife2();
+      spaceLife3();
     }
-    if (hearts<2&&hearts>=1){
-      heart3();
+    if (spaceLives<2&&spaceLives>=1){
+      spaceLife3();
     }
-    if (hearts == 0){
+    if (spaceLives == 0){
       screen=2;
     }
   }
   
-  void heart1 (){image(heart,width-400,70);}
-  void heart2 (){image(heart,width-350,70);}
-  void heart3 (){image(heart,width-300,70);}
+  void spaceLife1 (){image(spaceLife,50,height-300);}
+  void spaceLife2 (){image(spaceLife,100,height-300);}
+  void spaceLife3 (){image(spaceLife,150,height-300);}
   
   void loadingScreen(){
     switch(screen){
-      case 0:
+     case 0:
         screen=0;
         background(0);
         fill(255);//white fill
         textAlign(CENTER);
-        textFont(sourceC);
+        textFont(redAlert);
         pulse=(sin(0.0625*frameCount)*10);
         text ("GALAGA",width/2.0-pulse,(height/2.0));
-        textFont(courier);
+        textSize(36);
         text ("(Student Rendition)",width/2.0,height/2.0+50); 
-        textFont(courier2);
         fill(#9BF7FF);//light blue
-        text ("Press \t \t \t to Start!",width/2.0,height/2.0+200);
-        upArrow();
+        textSize(56);
+        text ("Press ENTER to Start!",width/2.0,height/2.0+200);
         break;
     }
   }
-  void upArrow(){
-    pushMatrix();
-    scale(0.75);
-    image(up,width/1.9,height/2.0+347);
-    popMatrix();
-    resetMatrix();
-  }
+  
   void gameScreen(){
      switch(screen){
         case 1:
-          background(0);
-         for (int i = 0; i < 1000; i = i+33) {
-          strokeCap(SQUARE);
-          strokeWeight (18);
-          stroke(0);
-          line(473, i, 480, i);
-        }
+        background(0);
         noStroke();
         scoreDisplay();
-        heartsDisplay();
-        }
-    }
+        spaceLivesDisplay();
+        e.display();
+        e.update();
+        s.display();
+        s.update();
+        break;
+     }
+  }
   
   
   void endGame(){
@@ -133,13 +119,12 @@ class GameScreens{
         background(0);//black
         pulse=(sin(0.025*frameCount)*20);
         fill(255);//white fill
-        textFont(sourceC);
+        textFont(redAlert);
+        textSize(70);
         textAlign(CENTER);
         text ("YOU LOSE!",width/2.0,height/2.0);
-        textFont(courier2);
-        text ("Press \t \t \t to reset game",width/1.8,height/2.0+200);
-        upArrow();
-        textFont(courier);
+        textSize(56);
+        text ("Press ENTER to reset game",width/1.8,height/2.0+200);
         float posx =width/2.0;
         text("Try Again?",posx,height/2.0+100+pulse);
         keyTyped();
@@ -153,17 +138,17 @@ class GameScreens{
       case 1:
         score=0;
         score2=0;
-        hearts=3;
-        if(hearts==0){
+        spaceLives=3;
+        if(spaceLives==0){
           screen=2;
-        break;
       }
+      break;
     }
   }
     
   void keyTyped(){
-    if (key==CODED &&keyCode==RIGHT){
-      println("RIGHT PRESSED");
+    if (key==CODED &&keyCode==RETURN || keyCode==ENTER){
+      println("ENTER PRESSED");
       screen=1;
       resetGame();
      }

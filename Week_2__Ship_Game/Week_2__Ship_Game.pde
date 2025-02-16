@@ -1,20 +1,17 @@
 Enemy e;
 GameScreens gs;
-Ship ship;
+Ship s;
+Shoot shoot;
 void setup (){
-  size (1000,1000);
+  size(1000,1000);
   noStroke();
   gs=new GameScreens(width,height);
   e=new Enemy(width,height,1);
+  s=new Ship(width,height/2.0);
+  shoot=new Shoot(s.shipPOSX+50,s.shipPOSY);
 }
 void draw (){
   background (0);//black background 
   gs.display();
   gs.update();
-  switch(gs.screen){
-    case 1:
-    e.display();
-    e.update(); 
-    break;
-  }
 }
