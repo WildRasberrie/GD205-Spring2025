@@ -1,5 +1,10 @@
 GameScreens gs;
 Observer observer;
+Bullet[] bullet= new Bullet[1];
+Enemy e;
+Physics physics;
+Ship s;
+UI ui;
 boolean playerControl=true, canShoot=true;
 
 void setup () {
@@ -7,6 +12,15 @@ void setup () {
   noStroke();
   gs=new GameScreens(width, height);
   observer=new Observer(notify=false);
+  e=new Enemy(width/2.0-250, height/2.0-500, 1);
+  s=new Ship(width/2.0, height/2.0+200);
+  physics=new Physics(width, height);
+  ui = new UI(width, height);
+  //initialize Bullet Class
+  bullet[0] = new Bullet(width/2.0, height);
+  for (int i=0; i<bullet.length; i++) {
+    minDist = dist(bullet[i].pos.x, bullet[i].pos.y, e.pos.x, e.pos.y);
+  }
 }
 
 void draw () {

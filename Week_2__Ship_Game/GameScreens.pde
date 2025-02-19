@@ -1,7 +1,5 @@
 class GameScreens {
-  //PROPERTIES 
-  Bullet[] bullet= new Bullet[1];
-  Enemy e; Physics physics; Ship s; UI ui;
+  //PROPERTIES
   PFont redAlert;
   PImage selectArrow;
   PVector pos;
@@ -12,17 +10,8 @@ class GameScreens {
   GameScreens(float x, float y) {
     pos= new PVector(x, y);
     selectArrow=loadImage("selectArrow.png");
-    screen=0;// set screen to intro
-    redAlert= createFont(fontList[21], 140);
-    e=new Enemy(width/2.0-250, height/2.0-500, 1);
-    s=new Ship(width/2.0, height/2.0+200);
-    physics=new Physics(width, height);
-    ui = new UI(width, height);
-    //initialize Bullet Class
-    bullet[0] = new Bullet(width/2.0, height);
-    for (int i=0; i<bullet.length; i++) {
-      minDist = dist(bullet[i].pos.x, bullet[i].pos.y, e.pos.x, e.pos.y);
-    }
+    screen=0;// START GAME ON INTRO SCREEN
+    redAlert= createFont(fontList[21], 140);//IMPORT CUSTOM FONT
   }
   //METHODS
   void display() {
@@ -42,18 +31,18 @@ class GameScreens {
       break;
     }
   }
-  void update(){
-     switch(screen) {
+  void update() {
+    switch(screen) {//IF SCREEN  = 0, SHOW LOADING SCREEN
     case 0:
       loadingScreen();
       break;
     }
-    switch(screen) {
+    switch(screen) {// IF SCREEN = 1, SHOW GAME SCREEN
     case 1:
       gameScreen();
       break;
     }
-    switch(screen) {
+    switch(screen) {// IF SCREEN = 2, SHOW LOSER SCREEN
     case 2:
       endGame();
       break;
@@ -63,88 +52,96 @@ class GameScreens {
     switch(screen) {
     case 0:
       screen=0;
-      background(0);
-      fill(255);//white fill
-      textAlign(CENTER);
-      textFont(redAlert);
-      pulse=(sin(0.0625*frameCount)*10);
-      text ("GALAGA", width/2.0, (height/3.0)-pulse);
-      textSize(36);
-      text ("(Student Rendition)", width/2.0, height/3.0+50);
-      fill(#9BF7FF);//light blue
-      textSize(56);
-      textAlign(LEFT);
-      text ("START\nEXIT GAME", width/2.0-150, height/2.0+200);
-      image(selectArrow, arrowPOSX, arrowPOSY);
-      physics.startControls();
+      introDisplay();//IMPORT INTRO BACKGROUND
+      physics.startControls();//SELECT CONTROLS
       break;
     }
   }
   void gameScreen() {
     switch(screen) {
     case 1:
-        starDisplay();//Import Background
-        e.display();//ENEMY DISPLAY & UPDATE
-        e.update();
-        s.display();//SHIP DISPLAY
-        UI.display();//UI DISPLAY
-        physics.gameplayControls();//PLAYER CONTROLS
-        break;
-      }
-    }
-  }
-  void endGame() {
-    switch(screen) {
-    case 2:
-      screen=2;
-      background(0);//black
-      pulse=(sin(0.025*frameCount)*20);
-      fill(255);//white fill
-      textFont(redAlert);
-      textSize(70);
-      textAlign(CENTER);
-      text ("YOU LOSE!", width/2.0, height/2.0);
-      textSize(56);
-      text ("NEW GAME\nEXIT GAME", width/2.0-150, height/2.0+200);
-      float posx =width/2.0;
-      text("Try Again?", posx, height/2.0+100+pulse);
-      physics.startControls();
+      starDisplay();//IMPORT START BACKGROUND
+      e.display();//ENEMY DISPLAY & UPDATE
+      e.update();
+      s.display();//SHIP DISPLAY & UPDATE
+      s.update();
+      UI.display();//UI DISPLAY
+      physics.gameplayControls(); //PLAYER CONTROLS
       break;
     }
   }
-  void resetGame() {
-    switch(screen) {
-    case 1:
-      score=0;
-      spaceLives=3;
-      if (spaceLives==0) {
-        screen=2;
-        break;
-      }
+}
+void endGame() {
+  switch(screen) {
+  case 2:
+    screen=2;
+    loseGameDisplay();      //IMPORT END GAME SCREEN
+    physics.startControls();//PLAYER CONTROLS
+    break;
+  }
+}
+void resetGame() {    //RESET GAME SCREEN
+  switch(screen) {
+  case 1:
+    score=0;
+    spaceLives=3;
+    if (spaceLives==0) {
+      screen=2;
+      break;
     }
   }
-  void starDisplay(){
-     pushMatrix();
-      background(0);
-      noStroke();
-      stroke(map(millis(), 0, 1000, 0, 120)%255);
-      for (int i = 0; i <width; i = i+300) {
-        for (int j = 0; j < height; j = j+450) {
-          point(i+(cos(frameCount*0.0005)*160), j-(sin(frameCount*0.0005)*160));
-        }
+}
+void introDisplay() {
+  background(0);
+  fill(255);//white fill
+  textAlign(CENTER);
+  textFont(redAlert);
+  pulse=(sin(0.0625*frameCount)*10);
+  text ("GALAGA", width/2.0, (height/3.0)-pulse);
+  textSize(36);
+  text ("(Student Rendition)", width/2.0, height/3.0+50);
+  fill(#9BF7FF);//light blue
+  textSize(56);
+  textAlign(LEFT);
+  text ("START\nEXIT GAME", width/2.0-150, height/2.0+200);
+  image(selectArrow, arrowPOSX, arrowPOSY);
+}
+void starDisplay() {
+  pushMatrix();
+  background(0);
+  noStroke();
+  stroke(map(millis(), 0, 1000, 0, 120)%255);
+  for (int i = 0; i <width; i = i+300) {
+    for (int j = 0; j < height; j = j+450) {
+      point(i+(cos(frameCount*0.0005)*160), j-(sin(frameCount*0.0005)*160));
+    }
+  }
+  stroke(map(millis(), 0, 1000, 0, 100)%255);
+  for (int i = 20; i < width; i = i+300) {
+    for (int j = 0; j <height; j = j+400) {
+      point(i-(cos(frameCount*0.0005)*160), j+(sin(frameCount*0.0005)*160));
+    }
+    stroke(map(millis(), 0, 1000, 0, 70)%255);
+    for (int i = 20; i < width; i = i+100) {
+      for (int j = 0; j <height; j = j+200) {
+        point(i-(cos(frameCount*0.0005)*130), j+(sin(frameCount*0.0005)*160));
       }
-      stroke(map(millis(), 0, 1000, 0, 100)%255);
-      for (int i = 20; i < width; i = i+300) {
-        for (int j = 0; j <height; j = j+400) {
-          point(i-(cos(frameCount*0.0005)*160), j+(sin(frameCount*0.0005)*160));
-        }
-        stroke(map(millis(), 0, 1000, 0, 70)%255);
-        for (int i = 20; i < width; i = i+100) {
-          for (int j = 0; j <height; j = j+200) {
-            point(i-(cos(frameCount*0.0005)*130), j+(sin(frameCount*0.0005)*160));
-          }
-        }
-        popMatrix();
-        resetMatrix();
+    }
+    popMatrix();
+    resetMatrix();
+  }
+}
+  void loseGameDisplay(){
+    background(0);//black
+    pulse=(sin(0.025*frameCount)*20);
+    fill(255);//white fill
+    textFont(redAlert);
+    textSize(70);
+    textAlign(CENTER);
+    text ("YOU LOSE!", width/2.0, height/2.0);
+    textSize(56);
+    text ("NEW GAME\nEXIT GAME", width/2.0-150, height/2.0+200);
+    float posx =width/2.0;
+    text("Try Again?", posx, height/2.0+100+pulse);
   }
 }

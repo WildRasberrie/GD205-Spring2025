@@ -16,6 +16,7 @@ class Bullet {
     image(bulletArrow, pos.x, pos.y);
   }
   void update() {
+    bulletOffset();
     pos.add(vel);
   }
   void bulletOffset() {

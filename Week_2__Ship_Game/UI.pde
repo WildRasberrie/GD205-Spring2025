@@ -45,8 +45,8 @@ class UI {
     if (spaceLives<2&&spaceLives>=1) {
       spaceLife3();
     }
-    if (spaceLives == 0) {
-      gs.screen=2;
+    if (spaceLives == 0) {//IF NO PLAYER LIVES REMAIN
+      gs.screen=2;        //END GAME SCREEN
     }
   }
   void updateScore() {

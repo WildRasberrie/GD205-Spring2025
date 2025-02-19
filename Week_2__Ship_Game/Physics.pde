@@ -22,9 +22,10 @@ class Physics {
     if (keyPressed==true && keyCode==' ') {
       Bullet b = new Bullet(s.pos.x+100, s.pos.y+150);
       bullet= (Bullet[]) append(bullet, b);
-    }
-    shoot();
+      shoot();
+    }   
   }
+  //BULLET DISPLAY & UPDATE
   void shoot() {
     for (int i =0; i<bullet.length; i++) {
       bullet[i].display();

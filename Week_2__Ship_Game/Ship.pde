@@ -10,10 +10,17 @@ class Ship {
   //METHODS
   void display() {
     image(ship, pos.x, pos.y);
-    if (s.pos.x<150) {
+  }
+  void update(){
+    edgeBarriers();
+  }
+  void edgeBarriers(){
+    boolean overlappingSprites=s.pos.x<150,
+            rightEdgeScreen=s.pos.x>710;
+    if (overlappingSprites) {
       s.pos.x=150;
     }
-    if (s.pos.x>710) {
+    if (rightEdgeScreen) {
       s.pos.x=710;
     }
   }
