@@ -1,21 +1,31 @@
-class Bullet{
-//PROPERTIES
-PVector pos;
-float motion;
-//CONSTRUCTORS
-  Bullet(float x,float y){
-    pos= new PVector (x,y);
+class Bullet {
+  //PROPERTIES
+  PVector pos, vel;
+  PImage bulletArrow;
+
+  //CONSTRUCTORS
+  Bullet(float x, float y) {
+    pos= new PVector (x, y);
+    vel= new PVector(0, -5);
+    bulletArrow=loadImage("bullet.png");
   }
-//METHODS
-    void display(){
-      stroke(255,0,0);//red
-      strokeWeight(10);
-      line(s.pos.x,s.pos.y+pos.y,s.pos.x,s.pos.y+pos.y+25);
+  //METHODS
+  void display() {
+    strokeWeight(20);
+    stroke(255, 0, 0);//red
+    image(bulletArrow, pos.x, pos.y);
+  }
+  void update() {
+    pos.add(vel);
+  }
+  void bulletOffset() {
+    boolean LSideOffset, RSideOffset;
+    LSideOffset=s.pos.x<460;
+    RSideOffset=s.pos.x>460;
+    if (LSideOffset&& keyPressed()) {
+      pos.x=s.pos.x+100;
     }
-  void collision(){
-  if (dist(pos.x,pos.y,e.pos.x,e.pos.y)<5){
-      e.pos.x=width+50; 
-      gs.score+=100;
+    if (RSideOffset&&keyPressed()) {
+      pos.x=s.pos.x-100;
     }
   }
-}

@@ -1,42 +1,36 @@
-class Enemy{
+class Enemy {
   PImage enemy;
   //PROPERTIES
-  PVector pos;
+  PVector pos, accelerate, negGravity;
   int screen;
-  float size,enemyPOSX,enemyPOSY;
+  float size, enemyPOSX, enemyPOSY;
   float movement;
+  int enemyDisplay=0;
   //CONSTRUCTORS
-    Enemy(float x, float y, float s){
-    pos= new PVector (x,y);
-    size=s;  
+  Enemy(float x, float y, float s) {
+    pos= new PVector (x, y);
+    accelerate=new PVector(0, 0);
+    negGravity=new PVector(0, -10);
+    size=s;
     enemy= loadImage("enemy.png");//enemy sprite
-    enemyPOSX=(pos.x-width/2.0-600);
+    enemyPOSX=(pos.x-width/2.0-250);// enemy loading pos
     enemyPOSY=(pos.y-height/2.0-500);
   }
   //METHODS
-  void display(){   
-    enemyFormation(); 
+  void display() {
+    enemyFormation();
   }
-  void update(){
-      enemyFormation();
+  void update() {
+    pos.add(accelerate);
   }
-  
-  void enemyFormation(){
-   movement = frameCount*0.4;
+
+  void enemyFormation() {
+    enemyDisplay=1;
+    movement = cos(0.025*frameCount)*150;
     for (int i = 0; i < 320; i = i+100) {
-      for (int j = 0; j < 320; j = j+100){
-        image(enemy,(enemyPOSX+movement)+i,enemyPOSY+j);
+      for (int j = 0; j < 320; j = j+100) {
+        image(enemy, (enemyPOSX+movement)+i, enemyPOSY+j);
       }
-    } 
-  }
-  
-  void wallCollisions(){
-    if (enemyPOSX>width-100){
-      pos.x*=-1;
-      pos.y+=50;
-    }
-    if (enemyPOSX<100){
-      pos.x*=-1;
     }
   }
 }

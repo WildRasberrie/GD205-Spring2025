@@ -1,16 +1,32 @@
-Enemy e;
 GameScreens gs;
-Ship s;
-void setup (){
-  size(1000,1000);
+Observer observer;
+boolean playerControl=true, canShoot=true;
+void setup () {
+  size(1000, 1000);
   noStroke();
-  gs=new GameScreens(width,height);
-  e=new Enemy(width,height,1);
-  s=new Ship(width/2.0,height/2.0+200);
-  println("PLAYER POS:\t:"+s.pos.x+",\t"+s.pos.y);
+  gs=new GameScreens(width, height);
+  observer=new Observer(notify=false);
 }
-void draw (){ 
-  background (0);//black background 
+void draw () {
   gs.display();
-  gs.update();
+  switch(gs.screen) {
+  case 1:
+    if (canShoot) {
+      updateScore();
+      break;
+    }
+  }
+}
+/*  TEXTBOOK REFERENCE: CHAPTER 4 OBSERVER
+ GAMING PROGRAMMING PATTERNS     BY:ROBERT NYSTROM  */
+void updateScore() {
+  boolean enemyWasHit=(gs.minDist>height);
+  boolean enemyisDisplaying=(e.enemyDisplay==1);
+  if (enemyWasHit && enemyisDisplaying) {
+    observer.notify=true;
+    if (observer.notify==true && physics.hasFallen==true) {
+      e.accelerate.add(e.negGravity);
+      gs.updateScore();
+    }
+  }
 }

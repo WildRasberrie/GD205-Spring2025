@@ -1,49 +1,20 @@
-class Ship{
-  Bullet[] bullet;
+class Ship {
   //PROPERTIES
   PImage ship;
-  PVector pos,heading;
-  int screen,speed;
-  float shipPOSX,shipPOSY;
-  boolean playerControl=false;
+  PVector pos;
   //CONSTRUCTORS
-    Ship(float x, float y){
-      pos= new PVector (x,y); 
-      ship = loadImage("spaceShip.png");  
-      bullet = new Bullet[1];
-      for(int i=0;i<bullet.length;i++){
-        bullet[i]= new Bullet(pos.x,pos.y);
-      }
-    }
+  Ship(float x, float y) {
+    pos= new PVector (x, y);
+    ship = loadImage("spaceShip.png");
+  }
   //METHODS
-  void display(){
-    shipDisplay();
-    for(int i=0;i<bullet.length;i++){
-      bullet[i].display();
+  void display() {
+    image(ship, pos.x, pos.y);
+    if (s.pos.x<150) {
+      s.pos.x=150;
+    }
+    if (s.pos.x>710) {
+      s.pos.x=710;
     }
   }
-  void update(){
-    buttonPressed();
-  }
-  void shipDisplay(){
-    image(ship,pos.x,pos.y);
-  }
-
-  void buttonPressed(){ 
-     if (keyPressed==true && 
-        (key == 'a'||key=='A' || (key==CODED && keyCode ==LEFT))){
-           pos.x-=3;
-      }
-      if (keyPressed==true && 
-         (key == 'd'||key=='D' || (key==CODED && keyCode ==RIGHT))){
-          pos.x+=3;
-         }
-      if (keyPressed==true && key==CODED && keyCode==SHIFT){
-        println("SHIFT PRESSED");
-        pos.y-=50;
-        for(int i=0;i<bullet.length;i++){
-          append(bullet[i],s.pos.y);
-        }
-      } 
-  } 
 }
