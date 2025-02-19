@@ -33,10 +33,7 @@ class Physics {
   }
   /*START SCREEN CONTROLS*/
   void startControls() {
-    if (keyPressed && key==CODED &&keyCode==DOWN) {
-      gs.arrowPOSY=height/2.0+215;
-    }
-    if (keyPressed && key==CODED &&keyCode==UP) {
+    if (keyPressed && key==CODED &&keyCode==UP) {//SELECT OPTION 1
       gs.arrowPOSY=height/2.0+145;
     }
     if (key==CODED &&keyCode==RETURN || keyCode==ENTER&&
@@ -44,6 +41,9 @@ class Physics {
       println("ENTER PRESSED");
       gs.screen=1;
       resetGame();
+    }
+    if (keyPressed && key==CODED &&keyCode==DOWN) {//SELECT OPTION 2
+      gs.arrowPOSY=height/2.0+215;
     }
     if (key==CODED &&keyCode==RETURN || keyCode==ENTER&&
       (gs.arrowPOSY==height/2.0+215)) {
