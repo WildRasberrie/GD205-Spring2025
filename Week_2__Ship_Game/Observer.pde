@@ -3,6 +3,7 @@ class Observer {
   boolean notify;
   //CONSTRUCTORS
   Observer(boolean notify) {
+    notify=false;
   }
   //METHODS
   void onNotify() {

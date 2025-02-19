@@ -1,33 +1,28 @@
 class GameScreens {
-  //PROPERTIES
-  Ship s;
+  //PROPERTIES 
   Bullet[] bullet= new Bullet[1];
-  Enemy e;
-  Physics physics;
+  Enemy e; Physics physics; Ship s; UI ui;
   PFont redAlert;
-  PImage spaceLife, selectArrow;
+  PImage selectArrow;
   PVector pos;
-  int screen, score, spaceLives, highscore;
+  int screen;
   String[] fontList=PFont.list();
   float arrowPOSY=height/2.0+145, arrowPOSX=width/4.0, posx=0, pulse;
   //CONSTRUCTORS
   GameScreens(float x, float y) {
-    e=new Enemy(width, height, 1);
+    pos= new PVector(x, y);
+    selectArrow=loadImage("selectArrow.png");
+    screen=0;// set screen to intro
+    redAlert= createFont(fontList[21], 140);
+    e=new Enemy(width/2.0-250, height/2.0-500, 1);
     s=new Ship(width/2.0, height/2.0+200);
     physics=new Physics(width, height);
+    ui = new UI(width, height);
     //initialize Bullet Class
     bullet[0] = new Bullet(width/2.0, height);
     for (int i=0; i<bullet.length; i++) {
       minDist = dist(bullet[i].pos.x, bullet[i].pos.y, e.pos.x, e.pos.y);
     }
-    pos= new PVector(x, y);
-    score=0;
-    selectArrow=loadImage("selectArrow.png");
-    highscore=score;
-    screen=0;// set screen to intro
-    spaceLives=3;
-    spaceLife= loadImage("SpaceLife.png");//(MODIFIED) Original Art By Christopher_Konrad
-    redAlert= createFont(fontList[21], 140);
   }
   //METHODS
   void display() {
@@ -47,41 +42,21 @@ class GameScreens {
       break;
     }
   }
-  void scoreDisplay() {
-    //SCORE
-    fill (255);//white
-    pushMatrix();
-    scale(0.65);
-    textFont(redAlert);
-    text (score, 50, 100);
-    popMatrix();
-    resetMatrix();
-  }
-  void spaceLife1 () {
-    image(spaceLife, 0, height-300);
-  }
-  void spaceLife2 () {
-    image(spaceLife, 50, height-300);
-  }
-  void spaceLife3 () {
-    image(spaceLife, 100, height-300);
-  }
-  void spaceLivesDisplay () {
-    scale(1.25);
-    if (spaceLives>=3&&spaceLives>2) {
-      spaceLife1();
-      spaceLife2();
-      spaceLife3();
+  void update(){
+     switch(screen) {
+    case 0:
+      loadingScreen();
+      break;
     }
-    if (spaceLives<3&&spaceLives>=2) {
-      spaceLife2();
-      spaceLife3();
+    switch(screen) {
+    case 1:
+      gameScreen();
+      break;
     }
-    if (spaceLives<2&&spaceLives>=1) {
-      spaceLife3();
-    }
-    if (spaceLives == 0) {
-      screen=2;
+    switch(screen) {
+    case 2:
+      endGame();
+      break;
     }
   }
   void loadingScreen() {
@@ -130,11 +105,10 @@ class GameScreens {
         }
         popMatrix();
         resetMatrix();
-        spaceLivesDisplay();
         e.display();
         e.update();
         s.display();
-        scoreDisplay();
+        UI.display();
         physics.gameplayControls();
         physics.updateEnemy();
         break;
@@ -171,8 +145,5 @@ class GameScreens {
         break;
       }
     }
-  }
-  void updateScore() {
-    score+=100;
   }
 }

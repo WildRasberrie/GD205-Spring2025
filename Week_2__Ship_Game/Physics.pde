@@ -2,12 +2,11 @@
  GAMING PROGRAMMING PATTERNS     BY:ROBERT NYSTROM  */
 class Physics {
   //PROPERTIES
-  PVector pos, enemyPOS;
+  PVector pos;
   boolean hasFallen=false;
   //CONSTRUCTORS
   Physics (float x, float y) {
     pos = new PVector(x, y);
-    enemyPOS= new PVector(e.pos.x, e.pos.y);
   }
   //METHODS
   /*START GAMEPLAY CONTROLS*/
@@ -52,11 +51,8 @@ class Physics {
       exit();
     }
   }
-  void updateEnemy() {
-    hasFallen();
-  }
   void hasFallen() {
-    if (enemyPOS.y>height) {
+    if (e.pos.y<0) {
       hasFallen=true;
     }
   }
