@@ -20,10 +20,9 @@ class Physics {
       s.pos.x+=3;
     }
     if (keyPressed==true && keyCode==' ') {
-      Bullet b = new Bullet(s.pos.x+100, s.pos.y+150);
-      bullet= (Bullet[]) append(bullet, b);
-      shoot();
-    }   
+      Bullet b = new Bullet(s.pos.x, s.pos.y);
+      bullet= (Bullet[]) append(bullet, b); 
+    } 
   }
   //BULLET DISPLAY & UPDATE
   void shoot() {
@@ -41,7 +40,7 @@ class Physics {
       (gs.arrowPOSY==height/2.0+145)) {
       println("ENTER PRESSED");
       gs.screen=1;
-      resetGame();
+      gs.resetGame();
     }
     if (keyPressed && key==CODED &&keyCode==DOWN) {//SELECT OPTION 2
       gs.arrowPOSY=height/2.0+215;

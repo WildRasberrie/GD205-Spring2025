@@ -1,4 +1,5 @@
 class UI {
+  PVector pos;
   int score, spaceLives;
   PImage spaceLife;
   UI(float x, float y) {
@@ -8,15 +9,18 @@ class UI {
     spaceLife= loadImage("SpaceLife.png");//(MODIFIED) Original Art By Christopher_Konrad
   }
   void display () {
+    pushMatrix();
     scoreDisplay();
     spaceLivesDisplay ();
+    popMatrix();
+    resetMatrix();
   }
   //SCORE DISPLAY
   void scoreDisplay() {
     fill (255);//white
     pushMatrix();
     scale(0.65);
-    textFont(redAlert);
+    textFont(gs.redAlert);
     text (score, 50, 100);
     popMatrix();
     resetMatrix();

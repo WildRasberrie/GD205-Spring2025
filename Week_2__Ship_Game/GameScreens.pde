@@ -65,12 +65,11 @@ class GameScreens {
       e.update();
       s.display();//SHIP DISPLAY & UPDATE
       s.update();
-      UI.display();//UI DISPLAY
+      ui.display();//UI DISPLAY
       physics.gameplayControls(); //PLAYER CONTROLS
       break;
     }
   }
-}
 void endGame() {
   switch(screen) {
   case 2:
@@ -83,9 +82,9 @@ void endGame() {
 void resetGame() {    //RESET GAME SCREEN
   switch(screen) {
   case 1:
-    score=0;
-    spaceLives=3;
-    if (spaceLives==0) {
+    ui.score=0;
+    ui.spaceLives=3;
+    if (ui.spaceLives==0) {
       screen=2;
       break;
     }
@@ -111,25 +110,25 @@ void starDisplay() {
   background(0);
   noStroke();
   stroke(map(millis(), 0, 1000, 0, 120)%255);
-  for (int i = 0; i <width; i = i+300) {
-    for (int j = 0; j < height; j = j+450) {
-      point(i+(cos(frameCount*0.0005)*160), j-(sin(frameCount*0.0005)*160));
+  for (int i = 0; i <width*2; i = i+300) {
+    for (int j = 0; j < height*2; j = j+900) {
+      point(i+(cos(frameCount*0.0005)*320), j-(sin(frameCount*0.0005)*160));
     }
   }
   stroke(map(millis(), 0, 1000, 0, 100)%255);
-  for (int i = 20; i < width; i = i+300) {
-    for (int j = 0; j <height; j = j+400) {
+  for (int i = 20; i < width*2; i = i+600) {
+    for (int j = 0; j <height*2; j = j+800) {
       point(i-(cos(frameCount*0.0005)*160), j+(sin(frameCount*0.0005)*160));
     }
     stroke(map(millis(), 0, 1000, 0, 70)%255);
-    for (int i = 20; i < width; i = i+100) {
-      for (int j = 0; j <height; j = j+200) {
-        point(i-(cos(frameCount*0.0005)*130), j+(sin(frameCount*0.0005)*160));
+    for (int k = 20; k < width*2; k = k+200) {
+      for (int j = 0; j <height*2; j = j+400) {
+        point(k-(cos(frameCount*0.0005)*130), j+(sin(frameCount*0.0005)*160));
       }
     }
-    popMatrix();
-    resetMatrix();
   }
+  popMatrix();
+  resetMatrix();
 }
   void loseGameDisplay(){
     background(0);//black

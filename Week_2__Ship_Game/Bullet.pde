@@ -16,17 +16,18 @@ class Bullet {
     image(bulletArrow, pos.x, pos.y);
   }
   void update() {
-    bulletOffset();
+    //bulletOffset();
     pos.add(vel);
   }
   void bulletOffset() {
     boolean LSideOffset, RSideOffset;
-    LSideOffset=s.pos.x<460;
+    LSideOffset=s.pos.x<460||s.pos.x>0;
     RSideOffset=s.pos.x>460;
-    if (LSideOffset&& keyPressed()) {
+    if (LSideOffset&& keyPressed==true) {
       pos.x=s.pos.x+100;
     }
-    if (RSideOffset&&keyPressed()) {
+    if (RSideOffset&&keyPressed==true) {
       pos.x=s.pos.x-100;
     }
   }
+}

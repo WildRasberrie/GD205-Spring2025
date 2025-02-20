@@ -1,9 +1,8 @@
 class Observer {
-  //PROPERTIES
-  boolean notify;
+boolean notify;
   //CONSTRUCTORS
-  Observer(boolean notify) {
-    notify=false;
+  Observer() {
+     notify=false;
   }
   //METHODS
   void onNotify() {
@@ -11,3 +10,4 @@ class Observer {
       println("OBSERVER NOTIFIED");
     }
   }
+}
