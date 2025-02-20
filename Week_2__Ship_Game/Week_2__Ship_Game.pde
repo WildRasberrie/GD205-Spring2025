@@ -43,8 +43,8 @@ void draw () {
 void updateScore() {
   for (int i=0; i<bullet.length; i++) {
     float minDist = dist(bullet[i].pos.x, bullet[i].pos.y, e.pos.x, e.pos.y);
-    boolean enemyWasHit=(minDist<5); 
-    boolean enemyisDisplaying=(e.enemyDisplay==1);
+    boolean enemyWasHit=(minDist<5); //DIST BTWN BULLET SPRITE AND ENEMY SPRITE
+    boolean enemyisDisplaying=(e.enemyDisplay==1);//ENEMY IS DISPLAYING = TRUE
     if (enemyWasHit && enemyisDisplaying &&
         keyPressed==true && keyCode==' ') {                   //IF ENEMY IS ON SCREEN AND ENEMY COLLISION
       observer[0].notify=true;                                   // NOTIFY OBSERVER THAT THERE WAS A COLLISION
