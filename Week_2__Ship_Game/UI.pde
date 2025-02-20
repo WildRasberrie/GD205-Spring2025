@@ -9,11 +9,8 @@ class UI {
     spaceLife= loadImage("SpaceLife.png");//(MODIFIED) Original Art By Christopher_Konrad
   }
   void display () {
-    pushMatrix();
     scoreDisplay();
     spaceLivesDisplay ();
-    popMatrix();
-    resetMatrix();
   }
   //SCORE DISPLAY
   void scoreDisplay() {
@@ -36,7 +33,6 @@ class UI {
   }
   //PLAYER HEALTH DISPLAY
   void spaceLivesDisplay () {
-    scale(1.25);
     if (spaceLives>=3&&spaceLives>2) {
       spaceLife1();
       spaceLife2();

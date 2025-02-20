@@ -9,7 +9,6 @@ class Ship {
   }
   //METHODS
   void display() {
-    scale (1.25);
     image(ship, pos.x, pos.y);
   }
   void update(){

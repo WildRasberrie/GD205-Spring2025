@@ -61,8 +61,14 @@ class GameScreens {
     switch(screen) {
     case 1:
       starDisplay();//IMPORT START BACKGROUND
-      e.display();//ENEMY DISPLAY & UPDATE
-      e.update();
+      for (int i = 0; i < 320; i = i+100) {
+        for (int j = 0; j < 320; j = j+100) {
+        e[i].display();//ENEMY DISPLAY & UPDATE
+        e[i].update();
+        e[j].display();//ENEMY DISPLAY & UPDATE
+        e[j].update();
+        }
+      }
       s.display();//SHIP DISPLAY & UPDATE
       s.update();
       ui.display();//UI DISPLAY
