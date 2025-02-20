@@ -3,7 +3,7 @@ class GameScreens {
   PFont redAlert;
   PImage selectArrow;
   PVector pos;
-  int screen;
+  int screen,j=0;
   String[] fontList=PFont.list();
   float arrowPOSY=height/2.0+145, arrowPOSX=width/4.0, posx=0, pulse;
   //CONSTRUCTORS
@@ -108,22 +108,26 @@ void introDisplay() {
 void starDisplay() {
   pushMatrix();
   background(0);
+  float starMovement=(sin(frameCount*0.0025)*120);
   noStroke();
-  stroke(map(millis(), 0, 1000, 0, 120)%255);
-  for (int i = 0; i <width*2; i = i+300) {
-    for (int j = 0; j < height*2; j = j+900) {
-      point(i+(cos(frameCount*0.0005)*320), j-(sin(frameCount*0.0005)*160));
+  strokeWeight(2);
+  stroke(map(millis(), 0, 1000, 0, 50)%100);
+  for (int i = 0; i <width; i = i+70) {
+    for (int j = -200; j < height+100; j = j+100) {
+      point(i, j+starMovement);
+      println("Star Points:\t"+(i)+
+              "\t,\t"+(starMovement));
     }
   }
-  stroke(map(millis(), 0, 1000, 0, 100)%255);
-  for (int i = 20; i < width*2; i = i+600) {
-    for (int j = 0; j <height*2; j = j+800) {
-      point(i-(cos(frameCount*0.0005)*160), j+(sin(frameCount*0.0005)*160));
+  stroke(map(millis(), 0, 1000, 0, 50)%90);
+  for (int i = 20; i < width; i = i+100) {
+    for (int j = -200; j <height+150; j = j+120) {
+      point(i, j+starMovement);
     }
-    stroke(map(millis(), 0, 1000, 0, 70)%255);
-    for (int k = 20; k < width*2; k = k+200) {
-      for (int j = 0; j <height*2; j = j+400) {
-        point(k-(cos(frameCount*0.0005)*130), j+(sin(frameCount*0.0005)*160));
+    stroke(map(millis(), 0, 1000, 0, 50)%80);
+    for (int k = 20; k < width; k = k+120) {
+      for (int j = -200; j <height+80; j = j+70) {
+        point(i, j+starMovement+10);
       }
     }
   }

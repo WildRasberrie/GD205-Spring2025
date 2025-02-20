@@ -35,7 +35,7 @@ void draw () {
     }
   }
    for (int i=0; i<bullet.length; i++) {
-      println("Bullet POS\t"+bullet[i].pos.x+"\t,\t"+bullet[i].pos.y);
+      //println("Bullet POS\t"+bullet[i].pos.x+"\t,\t"+bullet[i].pos.y);
    }
 }
 /*  TEXTBOOK REFERENCE: CHAPTER 4 OBSERVER
