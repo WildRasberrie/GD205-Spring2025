@@ -37,7 +37,7 @@ void draw () {
     }
   }
    for (int i=0; i<bullet.length; i++) {
-      //println("Bullet POS\t"+bullet[i].pos.x+"\t,\t"+bullet[i].pos.y);
+      println("Bullet DIST BTWN ENEMY\t"+dist(bullet[i].pos.x, bullet[i].pos.y, e.pos.x, e.pos.y));
    }
 }
 /*  TEXTBOOK REFERENCE: CHAPTER 4 OBSERVER
@@ -45,13 +45,12 @@ void draw () {
 void updateScore() {
   for (int i=0; i<bullet.length; i++) {
     float minDist = dist(bullet[i].pos.x, bullet[i].pos.y, e.pos.x, e.pos.y);
-    boolean enemyWasHit=(minDist<5); //DIST BTWN BULLET SPRITE AND ENEMY SPRITE
+    boolean enemyWasHit=(minDist<150); //DIST BTWN BULLET SPRITE AND ENEMY SPRITE
     boolean enemyisDisplaying=(e.enemyDisplay==1);//ENEMY IS DISPLAYING = TRUE
-    if (enemyWasHit && enemyisDisplaying &&
-        keyPressed==true && keyCode==' ') {                   //IF ENEMY IS ON SCREEN AND ENEMY COLLISION
+    if (enemyWasHit && enemyisDisplaying) {                   //IF ENEMY IS ON SCREEN AND ENEMY COLLISION
       observer[0].notify=true;                                   // NOTIFY OBSERVER THAT THERE WAS A COLLISION
       e.accelerate.add(e.negGravity);                         // START EVENT (ENEMY HEIGHT DECREASES)
-      if (observer[0].notify==true && physics.hasFallen==true ) {//IF OBSERVER IS NOTIFIED AND ENEMY OFFSCREEN
+      if (observer[0].notify==true && physics.hasFallen==true){//IF OBSERVER IS NOTIFIED AND ENEMY OFFSCREEN
         ui.updateScore();                                     //UPDATE SCORE
       }
     }
