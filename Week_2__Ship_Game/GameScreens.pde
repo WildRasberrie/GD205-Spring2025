@@ -114,9 +114,7 @@ void starDisplay() {
   stroke(map(millis(), 0, 1000, 0, 50)%100);
   for (int i = 0; i <width; i = i+70) {
     for (int j = -200; j < height+100; j = j+100) {
-      point(i, j+starMovement);
-      println("Star Points:\t"+(i)+
-              "\t,\t"+(starMovement));
+      point(i, j+starMovement); 
     }
   }
   stroke(map(millis(), 0, 1000, 0, 50)%90);

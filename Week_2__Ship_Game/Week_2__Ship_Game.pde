@@ -4,6 +4,7 @@ Bullet[] bullet= new Bullet[1];
 Enemy e;
 Physics physics;
 Ship s;
+Timer timer;
 UI ui;
 boolean playerControl=true, canShoot=true;
 float minDist =0;
@@ -15,6 +16,7 @@ void setup () {
   observer=new Observer[2];
   observer[0]=new Observer();
   observer[1]=new Observer();
+  timer=new Timer(2000);//2 second timer
   e=new Enemy(width/2.0-250, height/2.0-500, 1);
   s=new Ship(width/2.0, height-300);
   physics=new Physics(width, height);

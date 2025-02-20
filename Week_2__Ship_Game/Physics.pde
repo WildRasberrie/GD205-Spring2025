@@ -19,11 +19,20 @@ class Physics {
       (key == 'd'||key=='D' || (key==CODED && keyCode ==RIGHT))) {
       s.pos.x+=3;
     }
-    if (keyPressed==true && keyCode==' ') {
-      Bullet b = new Bullet(s.pos.x, s.pos.y);
-      bullet= (Bullet[]) append(bullet, b); 
+    //SEPARATE BULLETS
+    if(timer.totalTime<1000){
+      playerControl=false;
+    }
+    if(timer.isFinished()){
+      playerControl=true;
+      timer.start();
+    }
+      if (keyPressed==true && key==' '&&playerControl==true) {
+        println("SPACED PRESSED");
+        Bullet b = new Bullet(s.pos.x+100, s.pos.y+200);
+        bullet= (Bullet[]) append(bullet, b); 
+      }
     } 
-  }
   //BULLET DISPLAY & UPDATE
   void shoot() {
     for (int i =0; i<bullet.length; i++) {
