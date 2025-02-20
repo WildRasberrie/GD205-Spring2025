@@ -27,8 +27,11 @@ class Enemy {
   void enemyFormation() {
     enemyDisplay=1;
     movement = cos(0.025*frameCount)*150;
-    image(enemy, (pos.x+movement), pos.y);
-    image(enemy2, (pos.x+movement), pos.y-100);
-    image(enemy3, (pos.x+movement), pos.y-200);
+    int n=320;
+    for (int i=120;i<n;i=i+20){
+      image(enemy, (pos.x+movement) , pos.y );
+      image(enemy2, (pos.x+movement) , (pos.y-100) );
+      image(enemy3, (pos.x+movement) , (pos.y-200) );
+    }
   }
 }

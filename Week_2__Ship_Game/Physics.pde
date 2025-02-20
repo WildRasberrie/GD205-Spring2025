@@ -61,12 +61,8 @@ class Physics {
     }
   }
   void hasFallen() {
-    for (int i = 0; i < 320; i = i+100) {
-      for (int j = 0; j < 320; j = j+100) {
-        if (e[i].pos.y<0||e[j].pos.y<0) {
-          hasFallen=true;
-        }
-      }
+    if (e.pos.y<0||e.pos.y<0) {
+      hasFallen=true;
     }
   }
 }

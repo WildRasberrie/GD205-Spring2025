@@ -9,27 +9,27 @@ class UI {
     spaceLife= loadImage("SpaceLife.png");//(MODIFIED) Original Art By Christopher_Konrad
   }
   void display () {
+    pushMatrix();
+    scale(0.70);
     scoreDisplay();
     spaceLivesDisplay ();
+    popMatrix();
+    resetMatrix();
   }
   //SCORE DISPLAY
   void scoreDisplay() {
     fill (255);//white
-    pushMatrix();
-    scale(0.65);
     textFont(gs.redAlert);
     text (score, 50, 100);
-    popMatrix();
-    resetMatrix();
   }
   void spaceLife1 () {
-    image(spaceLife, 0, height-300);
+    image(spaceLife, 0 , height-300 );
   }
   void spaceLife2 () {
-    image(spaceLife, 50, height-300);
+    image(spaceLife, 50 , height-300 );
   }
   void spaceLife3 () {
-    image(spaceLife, 100, height-300);
+    image(spaceLife, 100 , height-300 );
   }
   //PLAYER HEALTH DISPLAY
   void spaceLivesDisplay () {

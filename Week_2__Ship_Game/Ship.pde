@@ -9,7 +9,7 @@ class Ship {
   }
   //METHODS
   void display() {
-    image(ship, pos.x, pos.y);
+    image(ship, pos.x , pos.y );
   }
   void update(){
     edgeBarriers();
