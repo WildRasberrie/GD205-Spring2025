@@ -20,19 +20,19 @@ class Physics {
       s.pos.x+=3;
     }
     //SEPARATE BULLETS
-    if(timer.totalTime<1000){
+    if (timer.totalTime<1000) {
       playerControl=false;
     }
-    if(timer.isFinished()){
+    if (timer.isFinished()) {
       playerControl=true;
       timer.start();
     }
-      if (keyPressed==true && key==' '&&playerControl==true) {
-        println("SPACED PRESSED");
-        Bullet b = new Bullet(s.pos.x+100, s.pos.y+200);
-        bullet= (Bullet[]) append(bullet, b); 
-      }
-    } 
+    if (keyPressed==true && key==' '&&playerControl==true) {
+      println("SPACED PRESSED");
+      Bullet b = new Bullet(s.pos.x+100, s.pos.y+200);
+      bullet= (Bullet[]) append(bullet, b);
+    }
+  }
   //BULLET DISPLAY & UPDATE
   void shoot() {
     for (int i =0; i<bullet.length; i++) {
@@ -65,6 +65,7 @@ class Physics {
       for (int j = 0; j < 320; j = j+100) {
         if (e[i].pos.y<0||e[j].pos.y<0) {
           hasFallen=true;
+        }
       }
     }
   }
