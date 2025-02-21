@@ -63,14 +63,9 @@ class GameScreens {
       starDisplay();//IMPORT START BACKGROUND
       ui.display();//UI DISPLAY
       physics.gameplayControls(); //PLAYER CONTROLS
-      pushMatrix();
-      scale(0.75);
       e.display();//ENEMY DISPLAY & UPDATE
       e.update();
       s.display();//SHIP DISPLAY & UPDATE
-      s.update();
-      popMatrix();
-      resetMatrix();
       break;
     }
   }

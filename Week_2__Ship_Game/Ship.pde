@@ -9,19 +9,20 @@ class Ship {
   }
   //METHODS
   void display() {
-    image(ship, pos.x , pos.y );
+    image(ship, pos.x, pos.y);
   }
   void update(){
     edgeBarriers();
   }
   void edgeBarriers(){
-    boolean overlappingSprites=s.pos.x<150,
-            rightEdgeScreen=s.pos.x>710;
+    boolean overlappingSprites=s.pos.x<300,
+            rightEdgeScreen=s.pos.x>800;
     if (overlappingSprites) {
-      s.pos.x=150;
+      s.pos.x=300;
     }
     if (rightEdgeScreen) {
-      s.pos.x=710;
+      s.pos.x=800;
+      println("WORKING");
     }
   }
 }

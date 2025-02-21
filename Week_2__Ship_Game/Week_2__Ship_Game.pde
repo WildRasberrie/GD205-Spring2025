@@ -19,7 +19,7 @@ void setup () {
   observer[1]=new Observer();
   timer=new Timer(2000);//2 second timer
   e=new Enemy(width/2.0-250 +j, height/2.0-500, 1);
-  s=new Ship(width/2.0, height-300);
+  s=new Ship(width-200, height-150);
   physics=new Physics(width, height);
   ui = new UI(width, height);
   //initialize Bullet Class
@@ -37,7 +37,7 @@ void draw () {
       break;
     }
   }
-  println("ENEMY IS DISPLAYING\t"+e.enemyDisplay);
+  println("SHIP POS:\t"+(s.pos.x)+","+(s.pos.y));
 }
 /*  TEXTBOOK REFERENCE: CHAPTER 4 OBSERVER
  GAMING PROGRAMMING PATTERNS     BY:ROBERT NYSTROM  */
