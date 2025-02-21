@@ -4,7 +4,7 @@ class Enemy {
   PVector pos, accelerate, negGravity;
   int screen;
   float size, enemyPOSX, enemyPOSY;
-  float movement;
+  float movement,scale=0.75;
   int enemyDisplay=0;
   //CONSTRUCTORS
   Enemy(float x, float y, float s) {
@@ -29,13 +29,21 @@ class Enemy {
     movement = cos(0.025*frameCount)*80;
     int n=660;
     for (int i=0;i<n;i=i+150){
-      image(enemy,(pos.x+movement+i-60),(pos.y));
+     float size=120;
+      stroke(#E020D4);
+      strokeWeight(3);
+      fill(0,0);
+      square((pos.x+(movement*scale)+i-35),pos.y,size);
+      image(enemy,(pos.x+(movement*scale)+i-60),(pos.y));
     }
     for (int i=75;i<n;i=i+150){
-      image(enemy2,(pos.x+movement+i-60),(pos.y+200));
+      
+      square((pos.x+(movement*scale)+i-60),pos.y+200,size);
+      image(enemy2,(pos.x+(movement*scale)+i-60),(pos.y+200));
     }
     for (int i=125;i<450;i=i+150){
-      image(enemy3,(pos.x+movement+i-60),(pos.y+350));
+      square((pos.x+(movement*scale)+i-60),pos.y+350,size);
+      image(enemy3,(pos.x+(movement*scale)+i-60),(pos.y+350));
     }  
   }
 }
