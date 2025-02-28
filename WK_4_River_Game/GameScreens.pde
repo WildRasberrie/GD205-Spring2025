@@ -103,14 +103,13 @@ class GameScreens {
     resetMatrix();
   }
   void gameScreen() {
-    background(#8CE3EA);
-    for (int i = 0; i < 3; i ++) {
-      strokeCap(SQUARE);
-      strokeWeight (18);
-      stroke(0);
-      line(i, 0, i+200, height);
-    }
+    background(#4b8424);
     noStroke();
+    fill(#0C73ED);
+    rect(width/4.4, 0, width/2.0, height);
+    for(int i=0;i<width/2.0;i+=width/4.4){
+      arc( width/2.0, height/4.0, width/20, width/20, 0, TAU/4,0);
+    }
     scoreDisplay();
     heartsDisplay();
     boolean offScreenR=pos.x>width+50;
