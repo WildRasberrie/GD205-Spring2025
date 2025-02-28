@@ -1,92 +1,64 @@
 class GameScreens {
-  //PROPERTIES
+  //PROPERTIE   S
   PFont redAlert;
   PImage selectArrow;
   PVector pos;
-  int screen, j=0;
+  int screen=0, j=0;
   String[] fontList=PFont.list();
   float arrowPOSY=height/2.0+145, arrowPOSX=width/4.0, posx=0, pulse;
+  color[] oooPrettyColors= {#CB81C2,#4BE7F7,#AFF0A2,#E7F273};
   //CONSTRUCTORS
   GameScreens(float x, float y) {
     pos= new PVector(x, y);
     selectArrow=loadImage("selectArrow.png");
-    screen=0;// START GAME ON INTRO SCREEN
     redAlert= createFont(fontList[21], 140);//IMPORT CUSTOM FONT
   }
   //METHODS
-  void display() {
-    switch(screen) {
-    case 0:
-      loadingScreen();
-      break;
-    }
-    switch(screen) {
-    case 1:
-      gameScreen();
-      break;
-    }
-    switch(screen) {
-    case 2:
-      endGame();
-      break;
-    }
-  }
   void update() {
-    switch(screen) {//IF SCREEN  = 0, SHOW LOADING SCREEN
-    case 0:
-      loadingScreen();
-      break;
-    }
-    switch(screen) {// IF SCREEN = 1, SHOW GAME SCREEN
-    case 1:
+    //switch(screen) {
+    //case 0:
+      //loadingScreen();
+      //break;
+    //case 1:
       gameScreen();
-      break;
-    }
-    switch(screen) {// IF SCREEN = 2, SHOW LOSER SCREEN
-    case 2:
-      endGame();
-      break;
-    }
+      //break;
+   // case 2:
+    //  endGame();
+    //  break;
+    //default:
+    //  loadingScreen();
+    //  break;
+    //}
   }
+
   void loadingScreen() {
-    switch(screen) {
-    case 0:
-      screen=0;
-      introDisplay();//IMPORT INTRO BACKGROUND
-      physics.startControls();//SELECT CONTROLS
-      break;
-    }
+    introDisplay();//IMPORT INTRO BACKGROUND
+    physics.startControls();//SeLeCT CONTROLS
   }
   void gameScreen() {
-    switch(screen) {
-    case 1:
-      starDisplay();//IMPORT START BACKGROUND
-      ui.display();//UI DISPLAY
-      physics.gameplayControls(); //PLAYER CONTROLS
-      e.display();//ENEMY DISPLAY & UPDATE
-      e.update();
-      s.display();//SHIP DISPLAY & UPDATE
-      break;
+    starDisplay();//IMPORT START BACKGROUND
+    ui.display();//UI DISPLAY
+    physics.gameplayControls(); //PLAYER CONTROLS
+    for(int i = 0; i < e.length; i++){
+      //e[i].display();//ENEMY DISPLAY & UPDATE
+      //e[i].update();
+    }
+    s.display();//SHIP DISPLAY & UPDATE
+    physics.canShoot=true;
+    for(int i=0;i<bullet.length;i++){
+      bullet[i].display();
+      bullet[i].update();
     }
   }
   void endGame() {
-    switch(screen) {
-    case 2:
-      screen=2;
-      loseGameDisplay();      //IMPORT END GAME SCREEN
-      physics.startControls();//PLAYER CONTROLS
-      break;
-    }
+    loseGameDisplay();      //IMPORT END GAME SCREEN
+    physics.startControls();//PLAYER CONTROLS
   }
   void resetGame() {    //RESET GAME SCREEN
-    switch(screen) {
-    case 1:
-      ui.score=0;
-      ui.spaceLives=3;
-      if (ui.spaceLives==0) {
-        screen=2;
-        break;
-      }
+    ui.score=0;
+    ui.spaceLives=3;
+    if (ui.spaceLives==0) {
+      screen=2;
     }
   }
   void introDisplay() {
@@ -101,29 +73,30 @@ class GameScreens {
     fill(#9BF7FF);//light blue
     textSize(56);
     textAlign(LEFT);
-    text ("START\nEXIT GAME", width/2.0-150, height/2.0+200);
     image(selectArrow, arrowPOSX, arrowPOSY);
   }
   void starDisplay() {
     pushMatrix();
     background(0);
     float starMovement=(sin(frameCount*0.0025)*120);
-    noStroke();
-    strokeWeight(2);
-    stroke(map(millis(), 0, 1000, 0, 50)%100);
+    stroke(oooPrettyColors[int(random(3))],map(millis(), 0, 1000, 0, 50)%90);
     for (int i = 0; i <width; i = i+70) {
       for (int j = -200; j < height+100; j = j+100) {
         point(i, j+starMovement);
       }
     }
-    stroke(map(millis(), 0, 1000, 0, 50)%90);
-    for (int i = 20; i < width; i = i+100) {
-      for (int j = -200; j <height+150; j = j+120) {
+    for (int i = 0; i <width; i = i+30) {
+      for (int j = -200; j < height+100; j = j+70) {
         point(i, j+starMovement);
       }
-      stroke(map(millis(), 0, 1000, 0, 50)%80);
-      for (int k = 20; k < width; k = k+120) {
-        for (int j = -200; j <height+80; j = j+70) {
+    }
+    for (int i = 20; i < width; i = i+65) {
+      for (int j = -200; j <height+129; j = j+151) {
+        point(i, j+starMovement);
+      } 
+      for (int k = 20; k < width; k = k+56) {
+        for (int j = -200; j <height+152; j = j+209) {
+          strokeWeight(1.75);
           point(i, j+starMovement+10);
         }
       }

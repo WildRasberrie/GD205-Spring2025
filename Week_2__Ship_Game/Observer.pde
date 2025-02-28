@@ -4,10 +4,10 @@ boolean notify;
   Observer() {
      notify=false;
   }
-  //METHODS
+  //MeTHODS
   void onNotify() {
     if (notify==true) {
-      println("OBSERVER NOTIFIED");
+      println("OBSeRVeR NOTIFIeD");
     }
   }
 }

@@ -1,5 +1,5 @@
 class Ship {
-  //PROPERTIES
+  //PROPeRTIeS
   PImage ship;
   PVector pos;
   //CONSTRUCTORS
@@ -7,7 +7,7 @@ class Ship {
     pos= new PVector (x, y);
     ship = loadImage("spaceShip.png");
   }
-  //METHODS
+  //MeTHODS
   void display() {
     image(ship, pos.x, pos.y);
   }
@@ -16,11 +16,11 @@ class Ship {
   }
   void edgeBarriers(){
     boolean overlappingSprites=s.pos.x<300,
-            rightEdgeScreen=s.pos.x>800;
+            rightedgeScreen=s.pos.x>800;
     if (overlappingSprites) {
       s.pos.x=300;
     }
-    if (rightEdgeScreen) {
+    if (rightedgeScreen) {
       s.pos.x=800;
       println("WORKING");
     }

@@ -10,9 +10,7 @@ class Bullet {
     bulletArrow=loadImage("bullet.png");
   }
   //METHODS
-  void display() {
-    strokeWeight(20);
-    stroke(255, 0, 0);//red
+  void display() {  
     image(bulletArrow, pos.x, pos.y);
   }
   void update() {

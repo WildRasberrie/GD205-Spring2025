@@ -1,49 +1,48 @@
 class Enemy {
-  PImage enemy, enemy2, enemy3;
   //PROPERTIES
-  PVector pos, accelerate, negGravity;
+  PVector pos, negGravity, vel;
   int screen;
-  float size, enemyPOSX, enemyPOSY;
-  float movement,scale=0.75;
+  float size;
   int enemyDisplay=0;
+  int skin;
+  PImage enemy[]=new PImage[3];
+
+
   //CONSTRUCTORS
-  Enemy(float x, float y, float s) {
+  Enemy(float x, float y, float s, int _skin) {
     pos= new PVector (x, y);
-    accelerate=new PVector(0, 0);
     negGravity=new PVector(0, -10);
+    vel=new PVector(0, 0);
     size=s;
-    enemy= loadImage("enemy.png");//IMPORT ENEMY SPRITES
-    enemy2= loadImage("enemy2.png");
-    enemy3= loadImage("enemy3.png");
+    skin = _skin;
+    enemy[0]=loadImage("enemy.png");//IMPORT ENEMY SPRITES
+    enemy[1]= loadImage("enemy2.png");
+    enemy[2]= loadImage("enemy3.png");
   }
   //METHODS
   void display() {
-    enemyFormation();
+    //for (int i=0; i<3; i++) {
+      //for (int j=0; j<120; j+=20) {
+       //pos=new PVector (width/3.6, height/7.5);
+       //println(pos);
+      //}
+    //}
   }
-  void update() {
-    pos.add(accelerate);
+  void update() {   
+    changeSkin();
+    //enemyBullets();
   }
 
-  void enemyFormation() {
-    enemyDisplay=1;
-    movement = cos(0.025*frameCount)*80;
-    int n=660;
-    for (int i=0;i<n;i=i+150){
-     float size=120;
-      stroke(#E020D4);
-      strokeWeight(3);
-      fill(0,0);
-      square((pos.x+(movement*scale)+i-35),pos.y,size);
-      image(enemy,(pos.x+(movement*scale)+i-60),(pos.y));
+  void changeSkin() {
+    //float enemyMovement=cos(frameCount*0.045)*145;//enemy pacing left to right
+    image(enemy[skin], pos.x, pos.y); //(pos.x)+enemyMovement, pos.y);
+  }
+  void enemyBullets() {
+    if (timer.totalTime==3000) {
+      println("TIMER HAS FINISHED!");
+      timer.resetTime();
+      //Bullet b = new Bullet(e.pos.x, e.pos.y);
+      //bullet= (Bullet[]) append(bullet, b);
     }
-    for (int i=75;i<n;i=i+150){
-      
-      square((pos.x+(movement*scale)+i-60),pos.y+200,size);
-      image(enemy2,(pos.x+(movement*scale)+i-60),(pos.y+200));
-    }
-    for (int i=125;i<450;i=i+150){
-      square((pos.x+(movement*scale)+i-60),pos.y+350,size);
-      image(enemy3,(pos.x+(movement*scale)+i-60),(pos.y+350));
-    }  
   }
 }

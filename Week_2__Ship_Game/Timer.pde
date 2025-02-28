@@ -22,4 +22,7 @@ class Timer{
       return false;
   }
   }
+  void resetTime(){
+    totalTime=0;
+  }
 }
