@@ -1,7 +1,7 @@
 class GameScreens {
   //PROPERTIES
   PFont redAlert;
-  PImage heart, selectArrow;
+  PImage heart, selectArrow,grassOverlay;
   PVector pos, arrowPos;
   color[] waterColor={#0C73ED/*light blue*/, #5344E8/*dark blue*/};
   int screen, score, hearts, highscore;
@@ -17,6 +17,7 @@ class GameScreens {
     highscore=score;
     screen=0;
     hearts=3;
+    grassOverlay=loadImage("GrassOverlay.png");
     selectArrow=loadImage("selectArrow.png");
     heart= loadImage("Pixel Heart.png");//Art By Nicole Marie T
     redAlert= createFont(fontList[21], 40);
@@ -57,12 +58,12 @@ class GameScreens {
         arc(-width/1.1+(i-motion), height/4.20+j, 264, 111, 0, TAU/2);
       }
     }
-    for (int i=0; i<width; i+=width/5.0) {
+    for (int i=0; i<width; i+=width/5.2) {
       for (int j=-23; j<219; j+=100) {
         fill(waterColor[1]);
         arc(-width/1.12+(i+pulse), height/2.1+j, 216, 120, 0, TAU/2);
         fill(waterColor[0]);
-        arc(-width/1.12+(i+pulse), height/2.11+j, 243, 100, 0, TAU/2);
+        arc(-width/1.12+(i+pulse), height/2.11+j, 256, 105, 0, TAU/2);
       }
     }
   }
@@ -126,6 +127,7 @@ class GameScreens {
   }
   void gameScreen() {
     background(#4b8424);//green
+    image(grassOverlay,0,0);
     fill(waterColor[0]);
     noStroke();
     pulse=(sin(0.0625*frameCount)*10);
