@@ -19,13 +19,9 @@ void setup () {
   observer[1]=new Observer();
   timer=new Timer(2000);//2 second timer
   s=new Ship(width/2.0, height-50);
-  e=new Enemy[500];
-  for (int i = 120; i < 320; i = i+20) {
-    for (int j = 0; j < 320; j = j+20) {
-      e[0] = new Enemy(width, height, 1, 1);
-      e[1] = new Enemy(width, height, 1, 2);
-      e[2] = new Enemy(width, height, 1, 3);
-    }
+  e=new Enemy[20];
+  for (int i =0; i < 3; i = i++) {
+    e[i] = new Enemy(width, height, 1, 0);
   }
   physics=new Physics(width, height);
   ui = new UI(width, height);
@@ -57,18 +53,16 @@ void updateScore() {
 
 void addEnemies() {
   float enemyMovement=cos(frameCount*0.045)*145;
-  for (int i = 120; i < 320; i = i+20) {
-    for (int j = 0; j < 320; j = j+20) {
-      e[0].pos = new PVector((200+i)+enemyMovement, 200);
+  for (int i = 0; i < 3; i = i++) {
+    for (int j = 0; j < 10; j = j+2) {
+      e[i] = new Enemy((200+i)+enemyMovement, 200,1,1);
     }
-    for (int j = 0; j < 320; j = j+20) {
-      e[1].pos = new PVector((200+i)+enemyMovement, 300);
+    for (int j = 0; j < 8; j = j+2) {
+      e[i] = new Enemy((200+i)+enemyMovement, 300,1,2);
     }
-    for (int j = 0; j < 320; j = j+20) {
-      e[2].pos = new PVector((200+i)+enemyMovement, 400);
+    for (int j = 0; j < 6; j = j+2) {
+      e[i] = new Enemy((200+i)+enemyMovement, 400,1,3);
+    }
+      e[i].update();
     }
   }
-  e[0].update();
-  e[1].update();
-  e[2].update();
-}

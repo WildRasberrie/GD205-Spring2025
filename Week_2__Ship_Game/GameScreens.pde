@@ -15,20 +15,20 @@ class GameScreens {
   }
   //METHODS
   void update() {
-    //switch(screen) {
-    //case 0:
-      //loadingScreen();
-      //break;
-    //case 1:
+    switch(screen) {
+    case 0:
+      loadingScreen();
+      break;
+    case 1:
       gameScreen();
-      //break;
-   // case 2:
-    //  endGame();
-    //  break;
-    //default:
-    //  loadingScreen();
-    //  break;
-    //}
+      break;
+    case 2:
+      endGame();
+      break;
+    default:
+      loadingScreen();
+      break;
+    }
   }
 
   void loadingScreen() {
