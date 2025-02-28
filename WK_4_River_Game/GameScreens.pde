@@ -1,9 +1,11 @@
 class GameScreens {
   //PROPERTIES
-  PFont sourceC, courier, courier2;
+  PFont redAlert;
   PImage heart, selectArrow;
-  PVector pos,arrowPos;
+  PVector pos, arrowPos;
+  color[] waterColor={#0C73ED/*light blue*/, #5344E8/*dark blue*/};
   int screen, score, hearts, highscore;
+  String[] fontList=PFont.list();
   Timer timer;
   int time=1000;//1 secs timer
   float pulse;
@@ -17,9 +19,7 @@ class GameScreens {
     hearts=3;
     selectArrow=loadImage("selectArrow.png");
     heart= loadImage("Pixel Heart.png");//Art By Nicole Marie T
-    sourceC= loadFont("SourceCodePro-ExtraLight-140.vlw");
-    courier= loadFont("CourierNewPS-BoldMT-20.vlw");
-    courier2= loadFont("CourierNewPS-BoldMT-48.vlw");
+    redAlert= createFont(fontList[21], 40);
     timer= new Timer(time);//1 secs in millis
   }
   //METHODS
@@ -29,7 +29,7 @@ class GameScreens {
     //  loadingScreen();
     //  break;
     //case 1:
-      gameScreen();
+    gameScreen();
     //  break;
     //case 2:
     //  endGame();
@@ -39,18 +39,41 @@ class GameScreens {
     //  break;
     //}
   }
-
+  void water() {
+    rotate(TAU/4.0);
+    for (int j=0; j<width; j+=width/12.1) {
+      fill(waterColor[0]);
+      arc( width/20.9+(j+pulse), height/-4.3, 171, 47, 0, TAU/2);
+      rotate(TAU/2.0);
+      arc(- width/1.0+(j+pulse), height/1.4, 184, 54, 0, TAU/2);
+    }
+    //inner water lines
+    for (int i=2; i<width; i+=width/5.0) {
+      for (int j=-23; j<219; j+=100) {
+        fill(waterColor[1]);
+        arc(-width/1.1+(i-pulse), height/3.8+j, 211, 135, 0, TAU/2);
+        fill(waterColor[0]);
+        arc(-width/1.1+(i-pulse), height/4.1+j, 419, 142, 0, TAU/2);
+      }
+    }
+    for (int i=2; i<width; i+=width/5.0) {
+      for (int j=-23; j<219; j+=100) {
+        fill(waterColor[1]);
+        arc(-width/1.1+(i+pulse), height/3.5+j, 211, 135, 0, TAU/2);
+        fill(waterColor[0]);
+        arc(-width/1.1+(i+pulse), height/3.8+j, 419, 142, 0, TAU/2);
+      }
+    }
+  }
   void scoreDisplay() {
     resetMatrix();
     pushMatrix();
     scale(1.0);
-    //PLAYER 1 SCORE
-    fill (0, 0, 255);//blue
-    textSize(36);
-    text ("Score: " + score, width-170, 50);
+    fill (255);//white fill
+    textFont(redAlert);
+    text ("SCORE: " + score, 30, 38);
     popMatrix();
   }
-
   void heartsDisplay () {
     scale(1.25);
     if (hearts>=3&&hearts>2) {
@@ -69,26 +92,24 @@ class GameScreens {
       screen=2;
     }
   }
-
   void heart1 () {
-    image(heart, width-400, 70);
+    image(heart, 25, 30);
   }
   void heart2 () {
-    image(heart, width-350, 70);
+    image(heart, 75, 30);
   }
   void heart3 () {
-    image(heart, width-300, 70);
+    image(heart, 125, 30);
   }
 
   void loadingScreen() {
     screen=0;
     background(0);
     fill(255);//white fill
+    textFont(redAlert);
     textAlign(CENTER);
-    textFont(sourceC);
     pulse=(sin(0.0625*frameCount)*10);
     text ("River Game", width/2.0-pulse, (height/2.5));
-    textFont(courier2);
     textAlign(LEFT);
     fill(#9BF7FF);//light blue
     text ("Start Game\n\nExit Game", width/3.1, height/1.8);
@@ -98,18 +119,17 @@ class GameScreens {
   void selectArrow() {
     pushMatrix();
     scale(0.75);
-    image(selectArrow, arrowPos.x,arrowPos.y);
+    image(selectArrow, arrowPos.x, arrowPos.y);
     popMatrix();
     resetMatrix();
   }
   void gameScreen() {
-    background(#4b8424);
+    background(#4b8424);//green
+    fill(waterColor[0]);
     noStroke();
-    fill(#0C73ED);
+    pulse=(sin(0.0625*frameCount)*10);
     rect(width/4.4, 0, width/2.0, height);
-    for(int i=0;i<width/2.0;i+=width/4.4){
-      arc( width/2.0, height/4.0, width/20, width/20, 0, TAU/4,0);
-    }
+    water();
     scoreDisplay();
     heartsDisplay();
     boolean offScreenR=pos.x>width+50;
@@ -117,27 +137,18 @@ class GameScreens {
       hearts--;
     }
   }
-
   void endGame() {
     resetMatrix();
     screen=2;
     background(0);
-    fill(#46FF4D);
-    float pulse2=(sin(0.06*frameCount)*5);
-    pulse=(sin(0.025*frameCount)*20);
-    circle(width/2.0, height/2.0-225, 125+pulse2);
     fill(255);//white fill
-    textFont(sourceC);
     textAlign(CENTER);
     text ("YOU LOSE!", width/2.0, height/2.0);
     selectArrow();
-    textFont(courier);
     float posx =width/2.0;
     text("Restart Game", posx, height/2.0+100+pulse);
     keyTyped();
   }
-
-
   void resetGame() {
     score=0;
     hearts=3;
@@ -145,16 +156,15 @@ class GameScreens {
       screen=2;
     }
   }
-
   void keyTyped() {
-    if (key==CODED&&keyCode==RETURN||keyCode==ENTER){
+    if (key==CODED&&keyCode==RETURN||keyCode==ENTER) {
       println("Enter");
       screen=1;
       resetGame();
-    }else if (keyCode==UP) {
+    } else if (keyCode==UP) {
       println("UP");
       arrowPos.y=height/1.45;
-    }else if (keyCode==DOWN) {
+    } else if (keyCode==DOWN) {
       println("DOWN");
       arrowPos.y=height/1.21;
     }
