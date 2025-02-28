@@ -12,7 +12,6 @@ class UI {
   void display () {
     scoreDisplay();
     spaceLivesDisplay ();
-    collisionBoxes();
   }
   //SCORe DISPLAY
   void scoreDisplay() {
@@ -51,36 +50,4 @@ class UI {
   void updateScore() {
     score+=100;
   }
-  void collisionBoxes() {
-    if (debugCollisionBoxes ==true) {
-      stroke(#F030DA);
-      fill(0, 0);
-      strokeWeight(3);
-      int size=42;
-      float enemyMovement=cos(frameCount*0.045)*145;
-      //ENEMY COLLISION BOX
-      for (int i=0; i<500; i+=100) {
-        for (int j = 0; j < 6; j++) {
-          ellipse((e[0].pos.x+j)+enemyMovement, e[0].pos.y, size, size);
-        }
-          for (int j=0; j<5; j++) {
-            if (i==1) {
-              ellipse((e[1].pos.x+j)+enemyMovement, e[1].pos.y, size, size);
-            }
-          }
-              for (int j=0; j<4; j++) {
-                if (i==2) {
-                  ellipse((e[2].pos.x+j)+enemyMovement, e[2].pos.y, size, size);
-                }
-              }
-          }
-              //SHIP COLLISION BOX
-              ellipse(s.pos.x+25, s.pos.y+18, 42, size);
-              //BULLET COLLISION BOX
-              for (int i=0; i<bullet.length; i++) {
-                ellipse(bullet[i].pos.x+20, bullet[i].pos.y, 29, 34);
-              }
- 
-        }
-      }
 }

@@ -55,14 +55,10 @@ void addEnemies() {
   float enemyMovement=cos(frameCount*0.045)*145;
   for (int i = 0; i < 3; i = i++) {
     for (int j = 0; j < 10; j = j+2) {
-      e[i] = new Enemy((200+i)+enemyMovement, 200,1,1);
-    }
-    for (int j = 0; j < 8; j = j+2) {
-      e[i] = new Enemy((200+i)+enemyMovement, 300,1,2);
-    }
-    for (int j = 0; j < 6; j = j+2) {
-      e[i] = new Enemy((200+i)+enemyMovement, 400,1,3);
-    }
+      e[0] = new Enemy((200+j)+enemyMovement, 200, 1, 1);
+      e[1] = new Enemy((200+j)+enemyMovement, 300, 1, 2);
+      e[2] = new Enemy((200+j)+enemyMovement, 400, 1, 3);
       e[i].update();
     }
   }
+}
