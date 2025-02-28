@@ -40,28 +40,29 @@ class GameScreens {
     //}
   }
   void water() {
+    float motion=(sin(0.0625*frameCount)*20);
     rotate(TAU/4.0);
     for (int j=0; j<width; j+=width/12.1) {
       fill(waterColor[0]);
-      arc( width/20.9+(j+pulse), height/-4.3, 171, 47, 0, TAU/2);
+      arc( width/20.9+(j+motion), height/-4.5, 171, 47, 0, TAU/2);
       rotate(TAU/2.0);
-      arc(- width/1.0+(j+pulse), height/1.4, 184, 54, 0, TAU/2);
+      arc(- width/1.0+(j+motion), height/1.4, 184, 54, 0, TAU/2);
     }
     //inner water lines
-    for (int i=2; i<width; i+=width/5.0) {
-      for (int j=-23; j<219; j+=100) {
+    for (int i=-40; i<width; i+=width/5.2) {
+      for (int j=-23; j<173; j+=77) {
         fill(waterColor[1]);
-        arc(-width/1.1+(i-pulse), height/3.8+j, 211, 135, 0, TAU/2);
+        arc(-width/1.1+(i-motion), height/4.18+j, 221, 127, 0, TAU/2);
         fill(waterColor[0]);
-        arc(-width/1.1+(i-pulse), height/4.1+j, 419, 142, 0, TAU/2);
+        arc(-width/1.1+(i-motion), height/4.20+j, 264, 111, 0, TAU/2);
       }
     }
-    for (int i=2; i<width; i+=width/5.0) {
+    for (int i=0; i<width; i+=width/5.0) {
       for (int j=-23; j<219; j+=100) {
         fill(waterColor[1]);
-        arc(-width/1.1+(i+pulse), height/3.5+j, 211, 135, 0, TAU/2);
+        arc(-width/1.12+(i+pulse), height/2.1+j, 216, 120, 0, TAU/2);
         fill(waterColor[0]);
-        arc(-width/1.1+(i+pulse), height/3.8+j, 419, 142, 0, TAU/2);
+        arc(-width/1.12+(i+pulse), height/2.11+j, 243, 100, 0, TAU/2);
       }
     }
   }
@@ -146,7 +147,7 @@ class GameScreens {
     text ("YOU LOSE!", width/2.0, height/2.0);
     selectArrow();
     float posx =width/2.0;
-    text("Restart Game", posx, height/2.0+100+pulse);
+    text("Restart Game", posx, height/2.05+100+pulse);
     keyTyped();
   }
   void resetGame() {
