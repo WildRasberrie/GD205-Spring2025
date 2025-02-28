@@ -5,6 +5,5 @@ void setup(){
 }
 void draw(){
   println(mouseX+",\t"+mouseY);
-  gs.display();
   gs.update();
 }

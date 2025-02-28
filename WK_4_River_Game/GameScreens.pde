@@ -2,15 +2,15 @@ class GameScreens {
   //PROPERTIES
   PFont sourceC, courier, courier2;
   PImage heart, selectArrow;
-  PVector pos;
+  PVector pos,arrowPos;
   int screen, score, hearts, highscore;
   Timer timer;
   int time=1000;//1 secs timer
-  float posx=0;
   float pulse;
   //CONSTRUCTORS
   GameScreens(float x, float y) {
     pos= new PVector(x, y);
+    arrowPos= new PVector(width/2.8, height/1.45);
     score=0;
     highscore=score;
     screen=0;
@@ -24,20 +24,20 @@ class GameScreens {
   }
   //METHODS
   void update() {
-    switch(screen) {
-    case 0:
-      loadingScreen();
-      break;
-    case 1:
+    //switch(screen) {
+    //case 0:
+    //  loadingScreen();
+    //  break;
+    //case 1:
       gameScreen();
-      break;
-    case 2:
-      endGame();
-      break;
-    default:
-      loadingScreen();
-      break;
-    }
+    //  break;
+    //case 2:
+    //  endGame();
+    //  break;
+    //default:
+    //  loadingScreen();
+    //  break;
+    //}
   }
 
   void scoreDisplay() {
@@ -91,13 +91,14 @@ class GameScreens {
     textFont(courier2);
     textAlign(LEFT);
     fill(#9BF7FF);//light blue
-    text ("Start Game\n\nExit Game", width/1.5, height/3.0);
+    text ("Start Game\n\nExit Game", width/3.1, height/1.8);
+    keyTyped();
     selectArrow();
   }
   void selectArrow() {
     pushMatrix();
     scale(0.75);
-    image(selectArrow, width/2.8, height/1.5);
+    image(selectArrow, arrowPos.x,arrowPos.y);
     popMatrix();
     resetMatrix();
   }
@@ -147,16 +148,16 @@ class GameScreens {
   }
 
   void keyTyped() {
-    if (key==CODED&&keyCode==ENTER&&keyCode==RETURN) {
+    if (key==CODED&&keyCode==RETURN||keyCode==ENTER){
       println("Enter");
       screen=1;
       resetGame();
-    }
-    if (key==CODED&&keyCode==UP) {
-      pos.y=height/1.5;
-    }
-    if (key==CODED&&keyCode==DOWN) {
-      pos.y=height/1.2;
+    }else if (keyCode==UP) {
+      println("UP");
+      arrowPos.y=height/1.45;
+    }else if (keyCode==DOWN) {
+      println("DOWN");
+      arrowPos.y=height/1.21;
     }
   }
 }
