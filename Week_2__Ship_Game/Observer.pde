@@ -7,7 +7,7 @@ boolean notify;
   //MeTHODS
   void onNotify() {
     if (notify==true) {
-      timer.start(); 
+      
     }
   }
 }

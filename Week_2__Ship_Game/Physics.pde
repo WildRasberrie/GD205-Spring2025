@@ -19,13 +19,12 @@ class Physics {
       (key == 'd'||key=='D' || (key==CODED && keyCode ==RIGHT))) {
       s.pos.x+=3;
     }
-    if (keyPressed&&keyCode==' ') {
-     // observer[1].notify=true;
+    if (keyPressed&&
+        key==CODED&&keyCode==' ') {
       //if (timer.totalTime>2000) {
         println("SPACE");
         Bullet b = new Bullet(s.pos.x, s.pos.y);
         bullet= (Bullet[]) append(bullet, b);
-        timer.resetTime();
      // }
     }
   }
