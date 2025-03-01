@@ -7,7 +7,7 @@ boolean notify;
   //MeTHODS
   void onNotify() {
     if (notify==true) {
-      println("OBSeRVeR NOTIFIeD");
+      timer.start(); 
     }
   }
 }

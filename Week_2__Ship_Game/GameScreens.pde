@@ -38,11 +38,10 @@ class GameScreens {
   void gameScreen() {
     starDisplay();//IMPORT START BACKGROUND
     ui.display();//UI DISPLAY
-    physics.gameplayControls(); //PLAYER CONTROLS
-    for(int i = 0; i < e.length; i++){
-      //e[i].display();//ENEMY DISPLAY & UPDATE
-      //e[i].update();
+    for(int i=0;i<e.length;i++){
+      addEnemies();//ADD ENEMY SPRITES
     }
+    physics.gameplayControls(); //PLAYER CONTROLS
     s.display();//SHIP DISPLAY & UPDATE
     physics.canShoot=true;
     for(int i=0;i<bullet.length;i++){
@@ -70,9 +69,9 @@ class GameScreens {
     text ("GALAGA", width/2.0, (height/3.0)-pulse);
     textSize(36);
     text ("(Student Rendition)", width/2.0, height/3.0+50);
-    fill(#9BF7FF);//light blue
     textSize(56);
     textAlign(LEFT);
+    text ("NEW GAME\nEXIT GAME", width/2.0-150, height/2.0+200);
     image(selectArrow, arrowPOSX, arrowPOSY);
   }
   void starDisplay() {
