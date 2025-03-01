@@ -38,9 +38,7 @@ class GameScreens {
   void gameScreen() {
     starDisplay();//IMPORT START BACKGROUND
     ui.display();//UI DISPLAY
-    for(int i=0;i<e.length;i++){
-      addEnemies();//ADD ENEMY SPRITES
-    }
+    addEnemies();//ADD ENEMY SPRITES
     physics.gameplayControls(); //PLAYER CONTROLS
     s.display();//SHIP DISPLAY & UPDATE
     physics.canShoot=true;

@@ -2,7 +2,8 @@ class Enemy {
   //PROPERTIES
   PVector pos, negGravity, vel;
   int screen;
-  float size, motion= cos(frameCount*0.05) * 140;
+  float size;
+  float motion= cos(frameCount*0.05) * 140;
   int enemyDisplay=0;
   int skin;
   PImage enemy[]=new PImage[3];
