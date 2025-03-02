@@ -1,4 +1,4 @@
-class GameScreens {
+class UI {
   //PROPERTIES
   PFont redAlert;
   PImage heart, selectArrow,grassOverlay;
@@ -10,7 +10,7 @@ class GameScreens {
   int time=1000;//1 secs timer
   float pulse;
   //CONSTRUCTORS
-  GameScreens(float x, float y) {
+  UI (float x, float y) {
     pos= new PVector(x, y);
     arrowPos= new PVector(width/2.8, height/1.45);
     score=0;
@@ -115,7 +115,7 @@ class GameScreens {
     textAlign(LEFT);
     fill(#9BF7FF);//light blue
     text ("Start Game\n\nExit Game", width/3.1, height/1.8);
-    keyTyped();
+    physics.startScreenControls();
     selectArrow();
   }
   void selectArrow() {
@@ -132,13 +132,12 @@ class GameScreens {
     noStroke();
     pulse=(sin(0.0625*frameCount)*10);
     rect(width/4.4, 0, width/2.0, height);
-    water();
+    water();//WATER DISPLAY & MOVEMENT
+    physics.gameplayControls();//IMPORT GAME CONTROLS
     scoreDisplay();
     heartsDisplay();
-    boolean offScreenR=pos.x>width+50;
-    if (offScreenR) {
-      hearts--;
-    }
+    assets.display();//IMPORT ASSETS DISPLAY & UPDATE
+    assets.update();
   }
   void endGame() {
     resetMatrix();
@@ -150,26 +149,13 @@ class GameScreens {
     selectArrow();
     float posx =width/2.0;
     text("Restart Game", posx, height/2.05+100+pulse);
-    keyTyped();
+    physics.startScreenControls();
   }
   void resetGame() {
     score=0;
     hearts=3;
     if (hearts==0) {
       screen=2;
-    }
-  }
-  void keyTyped() {
-    if (key==CODED&&keyCode==RETURN||keyCode==ENTER) {
-      println("Enter");
-      screen=1;
-      resetGame();
-    } else if (keyCode==UP) {
-      println("UP");
-      arrowPos.y=height/1.45;
-    } else if (keyCode==DOWN) {
-      println("DOWN");
-      arrowPos.y=height/1.21;
     }
   }
 }
