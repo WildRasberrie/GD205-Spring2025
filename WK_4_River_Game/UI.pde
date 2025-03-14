@@ -1,7 +1,8 @@
 class UI {
   //PROPERTIES
   PFont redAlert;
-  PImage heart, selectArrow,grassOverlay;
+  PImage[] heart;
+  PImage selectArrow,grassOverlay;
   PVector pos, arrowPos;
   color[] waterColor={#0C73ED/*light blue*/, #5344E8/*dark blue*/};
   int screen, score, hearts, highscore;
@@ -19,7 +20,9 @@ class UI {
     hearts=3;
     grassOverlay=loadImage("GrassOverlay.png");
     selectArrow=loadImage("selectArrow.png");
-    heart= loadImage("Pixel Heart.png");//Art By Nicole Marie T
+    heart= new PImage[2];
+    heart[0]= loadImage("lives.png");
+    heart[1]= loadImage("deadFrog.png");
     redAlert= createFont(fontList[21], 40);
     timer= new Timer(time);//1 secs in millis
   }
@@ -84,24 +87,39 @@ class UI {
       heart3();
     }
     if (hearts<3&&hearts>=2) {
+      noHeart1();
       heart2();
       heart3();
     }
     if (hearts<2&&hearts>=1) {
+      noHeart1();
+      noHeart2();
       heart3();
     }
     if (hearts == 0) {
+      noHeart1();
+      noHeart2();
+      noHeart3();
       screen=2;
     }
   }
   void heart1 () {
-    image(heart, 25, 30);
+    image(heart[0], 5, 30);
   }
   void heart2 () {
-    image(heart, 75, 30);
+    image(heart[0],55, 30);
   }
   void heart3 () {
-    image(heart, 125, 30);
+    image(heart[0], 105, 30);
+  }
+   void noHeart1 () {
+    image(heart[1], 5, 30);
+  }
+  void noHeart2 () {
+    image(heart[1], 55, 30);
+  }
+  void noHeart3 () {
+    image(heart[1], 105, 30);
   }
 
   void loadingScreen() {
@@ -131,7 +149,7 @@ class UI {
     fill(waterColor[0]);
     noStroke();
     pulse=(sin(0.0625*frameCount)*10);
-    rect(width/4.4, 0, width/2.0, height);
+    rect(riverL.x, riverL.y, riverR.x, riverR.y);
     water();//WATER DISPLAY & MOVEMENT
     physics.gameplayControls();//IMPORT GAME CONTROLS
     scoreDisplay();

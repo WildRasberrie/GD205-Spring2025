@@ -1,18 +1,21 @@
 UI ui;
 Physics physics;
 Assets assets;
+PVector collisionBox, collisionBox2, riverL, riverR;
 void setup() {
   size(1000, 1000);
   ui=new UI(width, height);
   physics=new Physics(width, height);
   assets=new Assets(width, height);
+  riverL=new PVector (width/4.4, 0);
+  riverR=new PVector (width/2.0, height);
+  collisionBox= new PVector (assets.lilyPos.x, assets.lilyPos.y-200);
+  collisionBox2=new PVector (assets.lilyPos2.x, assets.lilyPos2.y-205);
 }
 void draw() {
-  printArray("DIST LOG1 & PLAYER:\t"+(dist(assets.playerPos.x, assets.playerPos.y,
-        assets.logPos.x, assets.logPos.y))+
-  "DIST LOG2 & PLAYER:\t"+(dist(assets.playerPos.x, assets.playerPos.y,
-      assets.logPos2.x, assets.logPos2.y)));
+  println("Is Player Jumping?\t"+physics.jumping);
   ui.update();
+  debugBoxes();
 }
 void keyPressed() {
   if (key == 'a'||key=='A' || (key==CODED && keyCode ==LEFT)) {
@@ -27,10 +30,33 @@ void keyPressed() {
   if (key == 's'||key=='S' || (key==CODED && keyCode ==DOWN)) {
     physics.down=true;
   }
-  if (key==' ') {
-    println("WORKING SPACEBAR (GOOD JOB!)");
-    if (physics.atWaterEdgeL) {
-      physics.jumping =true;
-    }
+  /****************************************
+   SCORE COUNTER
+  /****************************************/
+  if (physics.scoreCount==true) {
+    ui.score=ui.score+100;
+  } else {
+    physics.scoreCount=false;
   }
+  if (physics.playerControl==false){
+      assets.loadImage=0;
+      assets.playerPos.x=width/10.0;
+      if(assets.loadImage==0){
+        physics.playerControl=true;
+      }
+    }
+}
+
+void debugBoxes() {
+  /****************************
+   LILYPAD COLLISION BOXES
+  /***************************/
+  collisionBox= new PVector (assets.lilyPos.x+40, assets.lilyPos.y-180);
+  collisionBox2=new PVector (assets.lilyPos2.x+40, assets.lilyPos2.y-180);
+  strokeWeight(3);
+  stroke(#E10AED);
+  fill(255, 0);
+  rect(collisionBox.x, collisionBox.y, 40, 250);
+  rect(collisionBox2.x, collisionBox2.y, 40, 250);
+  noStroke();
 }
