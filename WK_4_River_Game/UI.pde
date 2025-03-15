@@ -22,7 +22,7 @@ class UI {
     selectArrow=loadImage("selectArrow.png");
     heart= new PImage[2];
     heart[0]= loadImage("lives.png");
-    heart[1]= loadImage("deadFrog.png");
+    heart[1]= loadImage("liveslost.png");
     redAlert= createFont(fontList[21], 40);
     timer= new Timer(time);//1 secs in millis
   }

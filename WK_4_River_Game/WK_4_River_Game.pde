@@ -1,9 +1,13 @@
 UI ui;
 Physics physics;
 Assets assets;
+Animation idle, jumping, dead;
 PVector collisionBox, collisionBox2, riverL, riverR;
+float x,y;
+
 void setup() {
   size(1000, 1000);
+  frameRate(24);
   ui=new UI(width, height);
   physics=new Physics(width, height);
   assets=new Assets(width, height);
@@ -12,11 +16,14 @@ void setup() {
   collisionBox= new PVector (assets.lilyPos.x, assets.lilyPos.y-200);
   collisionBox2=new PVector (assets.lilyPos2.x, assets.lilyPos2.y-205);
 }
+
 void draw() {
-  println("Is Player Jumping?\t"+physics.jumping);
+  //println("Is Player Jumping?\t"+physics.jumping);
   ui.update();
   debugBoxes();
+  
 }
+
 void keyPressed() {
   if (key == 'a'||key=='A' || (key==CODED && keyCode ==LEFT)) {
     physics.left=true;
@@ -38,13 +45,12 @@ void keyPressed() {
   } else {
     physics.scoreCount=false;
   }
-  if (physics.playerControl==false){
-      assets.loadImage=0;
-      assets.playerPos.x=width/10.0;
-      if(assets.loadImage==0){
-        physics.playerControl=true;
-      }
+  if (physics.playerControl==false) {
+    assets.playerPos.x=width/10.0;
+    if (physics.isDying) {
+      physics.playerControl=true;
     }
+  }
 }
 
 void debugBoxes() {

@@ -3,8 +3,8 @@
 class Physics {
   //PROPERTIES
   PVector pos;
-  boolean jumping=false, colliding=false, scoreCount=false, playerControl=true,
-    up, down, left, right, space;
+  boolean isJumping=false, colliding=false, scoreCount=false, playerControl=true,
+    isDying=false, up, down, left, right, space;
   boolean atWaterEdgeL, atWaterEdgeR;
   //CONSTRUCTORS
   Physics (float x, float y) {
@@ -30,12 +30,14 @@ class Physics {
     atWaterEdgeL=assets.playerPos.x>100;
     atWaterEdgeR=740<assets.playerPos.x&&assets.playerPos.x<750;
     if (playerControl==true) {
+      isDying=false;
       if (keyPressed) {
-        jumping=true;
+        isJumping=true;
       } else {
-        jumping=false;
+        isJumping=false;
       }
       if (left==true) {
+        jumping.display(x, y);
         assets.playerPos.x-=75;
         left=false;
         if (atWaterEdgeL) {
@@ -43,14 +45,17 @@ class Physics {
         }
       }
       if (right==true) {
+        jumping.display(x, y);
         assets.playerPos.x+=75;
         right=false;
       }
       if (up==true) {
+        jumping.display(x, y);
         assets.playerPos.y-=75;
         up=false;
       }
       if (down==true) {
+        jumping.display(x, y);
         assets.playerPos.y+=75;
         down=false;
       }
@@ -104,8 +109,11 @@ class Physics {
     /****************************************/
     if (physics.scoreCount==false) {
       if (assets.playerPos.x>riverL.x-100 && assets.playerPos.x<riverR.x) {
+        isDying=true;
         ui.hearts-=1;//if with river bounds and not colliding, lose health
-        assets.loadImage=1;
+        if (isDying) {
+          dead.display(x, y);
+        }
       }
     }
   }
