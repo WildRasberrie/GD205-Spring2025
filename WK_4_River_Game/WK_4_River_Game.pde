@@ -3,7 +3,7 @@ Physics physics;
 Assets assets;
 Animation idle, jumping, dead;
 PVector collisionBox, collisionBox2, riverL, riverR;
-float x,y;
+float x,y,opacity=100.0;
 
 void setup() {
   size(1000, 1000);
@@ -18,10 +18,10 @@ void setup() {
 }
 
 void draw() {
-  //println("Is Player Jumping?\t"+physics.jumping);
+  println("death frame: \t"+dead.frame);
   ui.update();
-  debugBoxes();
-  
+  debugBoxes();  
+  ui.arrowPos= new PVector(width/2.8, height/1.63);
 }
 
 void keyPressed() {
@@ -52,6 +52,11 @@ void keyPressed() {
     }
   }
 }
+  void mouseClicked(){
+    if(physics.up==true){
+      ui.resetGame();
+    }
+  }
 
 void debugBoxes() {
   /****************************
@@ -60,7 +65,7 @@ void debugBoxes() {
   collisionBox= new PVector (assets.lilyPos.x+40, assets.lilyPos.y-180);
   collisionBox2=new PVector (assets.lilyPos2.x+40, assets.lilyPos2.y-180);
   strokeWeight(3);
-  stroke(#E10AED);
+  stroke(#E10AED,opacity);
   fill(255, 0);
   rect(collisionBox.x, collisionBox.y, 40, 250);
   rect(collisionBox2.x, collisionBox2.y, 40, 250);

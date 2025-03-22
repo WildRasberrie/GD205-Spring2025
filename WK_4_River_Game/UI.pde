@@ -1,25 +1,31 @@
 class UI {
   //PROPERTIES
   PFont redAlert;
+  color[] button={#F29A27/*pastel orange*/,#AC00F7/*purple*/},
+          textColor={#5742d5/*light blue*/,#78817A},
+          textColor2={#5742d5/*light blue*/,#78817A};
   PImage[] heart;
-  PImage selectArrow,grassOverlay;
-  PVector pos, arrowPos;
+  PImage selectArrow,grassOverlay,popupWindow;
+  PVector pos, arrowPos, textPos,text2Pos;
   color[] waterColor={#0C73ED/*light blue*/, #5344E8/*dark blue*/};
   int screen, score, hearts, highscore;
   String[] fontList=PFont.list();
   Timer timer;
-  int time=1000;//1 secs timer
-  float pulse;
+  int time=1000,w=75,h=75;//1 secs timer
+  float pulse,buttonOpacity=100.00;
   //CONSTRUCTORS
   UI (float x, float y) {
     pos= new PVector(x, y);
-    arrowPos= new PVector(width/2.8, height/1.45);
+    textPos= new PVector (width/2.70,height/1.51);
+    text2Pos= new PVector (width/2.65,height/1.21);
+    arrowPos= new PVector(width/3.00, height/1.36);
     score=0;
     highscore=score;
     screen=0;
     hearts=3;
     grassOverlay=loadImage("GrassOverlay.png");
     selectArrow=loadImage("selectArrow.png");
+    popupWindow=loadImage("popupwindow.png");
     heart= new PImage[2];
     heart[0]= loadImage("lives.png");
     heart[1]= loadImage("liveslost.png");
@@ -30,10 +36,10 @@ class UI {
   void update() {
     //switch(screen) {
     //case 0:
-    //  loadingScreen();
+      loadingScreen();
     //  break;
     //case 1:
-    gameScreen();
+    //gameScreen();
     //  break;
     //case 2:
     //  endGame();
@@ -43,7 +49,14 @@ class UI {
     //  break;
     //}
   }
+  void grassland(){
+     background(#4b8424);//green
+    image(grassOverlay,0,0);
+  }
   void water() {
+    fill(waterColor[0]);
+    noStroke();
+    rect(riverL.x, riverL.y, riverR.x, riverR.y);
     float motion=(sin(0.0625*frameCount)*20);
     rotate(TAU/4.0);
     for (int j=0; j<width; j+=width/12.1) {
@@ -104,52 +117,56 @@ class UI {
     }
   }
   void heart1 () {
-    image(heart[0], 5, 30);
+    image(heart[0], 5, 30,w,h);
   }
   void heart2 () {
-    image(heart[0],55, 30);
+    image(heart[0],55, 30,w,h);
   }
   void heart3 () {
-    image(heart[0], 105, 30);
+    image(heart[0], 105, 30,w,h);
   }
    void noHeart1 () {
-    image(heart[1], 5, 30);
+    image(heart[1], 5, 30,w,h);
   }
   void noHeart2 () {
-    image(heart[1], 55, 30);
+    image(heart[1], 55, 30,w,h);
   }
   void noHeart3 () {
-    image(heart[1], 105, 30);
+    image(heart[1], 105, 30,w,h);
   }
 
   void loadingScreen() {
     screen=0;
-    background(0);
-    fill(255);//white fill
+    grassland();
+    //water();
+    image(popupWindow,width/8.0, height/12.6,width/1.48,height/1.1);
+    fill(0);
     textFont(redAlert);
     textAlign(CENTER);
     pulse=(sin(0.0625*frameCount)*10);
-    text ("River Game", width/2.0-pulse, (height/2.5));
+    text ("River\n Game", width/3.0, (height/4.0));
+    textSize(39);
+    text ("Do you want to start game?", width/2.2, (height/2.0-pulse));
     textAlign(LEFT);
-    fill(#9BF7FF);//light blue
-    text ("Start Game\n\nExit Game", width/3.1, height/1.8);
+    textSize(40);
+    fill(textColor[0]);
+    text ("Start Game", textPos.x, textPos.y);
+    fill(textColor2[0]);
+    text ("Exit Game", text2Pos.x, text2Pos.y);
     physics.startScreenControls();
     selectArrow();
   }
   void selectArrow() {
-    pushMatrix();
-    scale(0.75);
-    image(selectArrow, arrowPos.x, arrowPos.y);
-    popMatrix();
-    resetMatrix();
+    float rounded = 6.17;
+    strokeWeight(5);
+    stroke(#161a17);
+    fill(button[0],buttonOpacity);
+    rect( arrowPos.x, arrowPos.y,textPos.x-160,textPos.y/8.46,
+    rounded,rounded,rounded,rounded);
+    noStroke();
   }
   void gameScreen() {
-    background(#4b8424);//green
-    image(grassOverlay,0,0);
-    fill(waterColor[0]);
-    noStroke();
-    pulse=(sin(0.0625*frameCount)*10);
-    rect(riverL.x, riverL.y, riverR.x, riverR.y);
+    grassland();
     water();//WATER DISPLAY & MOVEMENT
     physics.gameplayControls();//IMPORT GAME CONTROLS
     scoreDisplay();
@@ -160,13 +177,13 @@ class UI {
   void endGame() {
     resetMatrix();
     screen=2;
+    opacity=0;
     background(0);
     fill(255);//white fill
     textAlign(CENTER);
     text ("YOU LOSE!", width/2.0, height/2.0);
     selectArrow();
-    float posx =width/2.0;
-    text("Restart Game", posx, height/2.05+100+pulse);
+    text("Restart Game\n\n\nExit Game", textPos.x,textPos.y);
     physics.startScreenControls();
   }
   void resetGame() {

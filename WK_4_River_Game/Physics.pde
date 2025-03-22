@@ -6,6 +6,7 @@ class Physics {
   boolean isJumping=false, colliding=false, scoreCount=false, playerControl=true,
     isDying=false, up, down, left, right, space;
   boolean atWaterEdgeL, atWaterEdgeR;
+  int animState=0;
   //CONSTRUCTORS
   Physics (float x, float y) {
     pos = new PVector(x, y);
@@ -15,14 +16,15 @@ class Physics {
   void startScreenControls() {
     if (key==CODED&&keyCode==RETURN||keyCode==ENTER) {
       println("Enter");
+      ui.button[0]=ui.button[1];
       ui.screen=1;
       ui.resetGame();
-    } else if (keyCode==UP) {
+    }else if (keyCode==UP||key=='w'||key=='W'|| mouseY>ui.textPos.y/8.4) {
       println("UP");
-      ui.arrowPos.y=height/1.45;
-    } else if (keyCode==DOWN) {
+      ui.arrowPos.y=height/1.64;
+    } else if (keyCode==DOWN||key=='s'||key=='S'||mouseY<ui.arrowPos.y) {
       println("DOWN");
-      ui.arrowPos.y=height/1.21;
+      ui.arrowPos.y=height/1.29;
     }
   }
   /*GAMEPLAY CONTROLS*/
@@ -31,31 +33,23 @@ class Physics {
     atWaterEdgeR=740<assets.playerPos.x&&assets.playerPos.x<750;
     if (playerControl==true) {
       isDying=false;
-      if (keyPressed) {
-        isJumping=true;
-      } else {
-        isJumping=false;
-      }
       if (left==true) {
-        jumping.display(x, y);
+        animState=1;
         assets.playerPos.x-=75;
         left=false;
-        if (atWaterEdgeL) {
-          left= false;
-        }
       }
       if (right==true) {
-        jumping.display(x, y);
+        animState=1;
         assets.playerPos.x+=75;
         right=false;
       }
       if (up==true) {
-        jumping.display(x, y);
+        animState=1;
         assets.playerPos.y-=75;
         up=false;
       }
       if (down==true) {
-        jumping.display(x, y);
+        animState=1;
         assets.playerPos.y+=75;
         down=false;
       }
@@ -106,15 +100,16 @@ class Physics {
     //River Collisions
     /****************************************
      LIFE COUNTER
-    /****************************************/
+    /****************************************/  
     if (physics.scoreCount==false) {
       if (assets.playerPos.x>riverL.x-100 && assets.playerPos.x<riverR.x) {
         isDying=true;
+        physics.playerControl=false;
         ui.hearts-=1;//if with river bounds and not colliding, lose health
-        if (isDying) {
-          dead.display(x, y);
-        }
       }
+    }
+    if(isDying){
+      animState=2;
     }
   }
 }

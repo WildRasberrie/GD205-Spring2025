@@ -17,7 +17,6 @@ class Animation {
     for (int i =0; i<numOfFrogs; i++) {
       //use nf to format numbers into strings
       String frogAnims = startImage + nf(i)+".png";
-      println(frogAnims);
       froggie[i]=loadImage(frogAnims);
     }
   }
