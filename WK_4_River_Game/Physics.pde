@@ -15,17 +15,17 @@ class Physics {
   /*START SCREEN CONTROLS*/
   void startScreenControls() {
     if (key==CODED&&keyCode==RETURN||keyCode==ENTER) {
-      println("Enter");
-      ui.button[0]=ui.button[1];
+      //println("Enter");
+      ui.button[0]=ui.button[1];// Change Button color after click 
       ui.screen=1;
       ui.resetGame();
     }
     if (keyCode==UP||key=='w'||key=='W'|| mouseY>ui.textPos.y/8.4) {
-      println("UP");
+      //println("UP");
       ui.arrowPos.y=height/1.64;
     }
     if (keyCode==DOWN||key=='s'||key=='S'||mouseY<ui.textPos.y) {
-      println("DOWN");
+      //println("DOWN");
       ui.arrowPos.y=height/1.29;
     }
   }
@@ -65,8 +65,10 @@ class Physics {
     boolean
       collidingLogs=dist(assets.playerPos.x, assets.playerPos.y, assets.logPos.x, assets.logPos.y)<40,
       collidingLogs2=dist(assets.playerPos.x, assets.playerPos.y, assets.logPos2.x, assets.logPos2.y)<40,
-      collidingLilies=dist(assets.playerPos.x, assets.playerPos.y, collisionBox.x, collisionBox.y)<40,
-      collidingLilies2=dist(assets.playerPos.x, assets.playerPos.y, collisionBox2.x, collisionBox2.y)<40;
+      collidingLilies=dist(assets.playerPos.x, assets.playerPos.y, collisionBox.x, collisionBox.y)<40
+      && ((assets.playerPos.y>collisionBox.y||assets.playerPos.y<250)),
+      collidingLilies2=dist(assets.playerPos.x, assets.playerPos.y, collisionBox2.x, collisionBox2.y)<40
+      &&((assets.playerPos.y<collisionBox2.y||assets.playerPos.y<250));
 
     //Log Collisions
     if (collidingLogs) {
@@ -102,7 +104,7 @@ class Physics {
     //River Collisions
     /****************************************
      LIFE COUNTER
-    /****************************************/  
+    /****************************************/
     if (physics.scoreCount==false) {
       if (assets.playerPos.x>riverL.x-100 && assets.playerPos.x<riverR.x) {
         isDying=true;
@@ -110,7 +112,7 @@ class Physics {
         ui.hearts-=1;//if with river bounds and not colliding, lose health
       }
     }
-    if(isDying){
+    if (isDying) {
       animState=2;
     }
   }

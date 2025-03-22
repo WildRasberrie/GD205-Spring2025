@@ -18,25 +18,38 @@ void setup() {
 }
 
 void draw() {
-  println("death frame: \t"+dead.frame);
   ui.update();
   debugBoxes();  
-  ui.arrowPos= new PVector(width/2.8, height/1.63);
+  println("PlayerPOS\t"+ assets.playerPos.x+"\t,\t"+assets.playerPos.y);
 }
 
 void keyPressed() {
-  if (key == 'a'||key=='A' || (key==CODED && keyCode ==LEFT)) {
+  if (assets.playerPos.x > 100 && (key == 'a'||key=='A' || (key==CODED && keyCode ==LEFT))) {
     physics.left=true;
   }
   if (key == 'd'||key=='D' || (key==CODED && keyCode ==RIGHT)) {
     physics.right=true;
   }
-  if (key == 'w'||key=='W' || (key==CODED && keyCode ==UP)) {
+  if ((assets.playerPos.y>50) && key == 'w'||key=='W' || (key==CODED && keyCode ==UP)) {
     physics.up=true;
   }
-  if (key == 's'||key=='S' || (key==CODED && keyCode ==DOWN)) {
+  if ((assets.playerPos.y<720) &&key == 's'||key=='S' || (key==CODED && keyCode ==DOWN)) {
     physics.down=true;
   }
+  if (key==CODED&&keyCode==RETURN||keyCode==ENTER) {
+      //println("Enter");
+      ui.button[0]=ui.button[1];
+      ui.screen=1;
+      ui.resetGame();
+    }
+    if (keyCode==UP||key=='w'||key=='W'|| mouseY>ui.textPos.y/8.4) {
+      //println("UP");
+      ui.arrowPos.y=height/1.64;
+    }
+    if (keyCode==DOWN||key=='s'||key=='S'||mouseY<ui.textPos.y) {
+      //println("DOWN");
+      ui.arrowPos.y=height/1.29;
+    }
   /****************************************
    SCORE COUNTER
   /****************************************/

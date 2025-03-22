@@ -5,7 +5,7 @@ class UI {
           textColor={#5742d5/*light blue*/,#78817A},
           textColor2={#5742d5/*light blue*/,#78817A};
   PImage[] heart;
-  PImage selectArrow,grassOverlay,popupWindow;
+  PImage grassOverlay,popupWindow;
   PVector pos, arrowPos, textPos,text2Pos;
   color[] waterColor={#0C73ED/*light blue*/, #5344E8/*dark blue*/};
   int screen, score, hearts, highscore;
@@ -24,7 +24,6 @@ class UI {
     screen=0;
     hearts=3;
     grassOverlay=loadImage("GrassOverlay.png");
-    selectArrow=loadImage("selectArrow.png");
     popupWindow=loadImage("popupwindow.png");
     heart= new PImage[2];
     heart[0]= loadImage("lives.png");
@@ -136,8 +135,6 @@ class UI {
   }
 
   void loadingScreen() {
-    physics.startScreenControls();
-    selectArrow();
     grassland();
     //water();
     image(popupWindow,width/8.0, height/12.6,width/1.48,height/1.1);
@@ -154,14 +151,16 @@ class UI {
     text ("Start Game", textPos.x, textPos.y);
     fill(textColor2[0]);
     text ("Exit Game", text2Pos.x, text2Pos.y);
-
+   physics.startScreenControls();
+    selectArrow();
   }
   void selectArrow() {
+    //println("hello");
     float rounded = 6.17;
     strokeWeight(5);
     stroke(#161a17);
     fill(button[0],buttonOpacity);
-    rect( arrowPos.x, arrowPos.y,textPos.x-160,textPos.y/8.46,
+    rect( arrowPos.x+30, arrowPos.y,textPos.x-170,textPos.y/8.46,
     rounded,rounded,rounded,rounded);
     noStroke();
   }
@@ -175,17 +174,16 @@ class UI {
     assets.update();
   }
   void endGame() {
-    selectArrow();
-    physics.startScreenControls();
     opacity=0;
     background(0);
     fill(255);//white fill
-    textAlign(LEFT);
+    textAlign(CENTER);
     text ("YOU LOSE!", width/2.0, height/2.0);
-
+    textAlign(LEFT);
     text("Reset Game", textPos.x,textPos.y);
     text("Exit Game",text2Pos.x,text2Pos.y);
-    
+    physics.startScreenControls();
+    selectArrow();
   }
   void resetGame() {
     score=0;
