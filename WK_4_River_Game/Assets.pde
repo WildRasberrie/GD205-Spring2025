@@ -42,27 +42,27 @@ class Assets {
   void enemyDisplay() {
   }
   void playerDisplay() {
-    //switch (physics.animState) {
-    //case 1:
-    //  jumping.display(x, y);
-    //  if (jumping.frame==3) {
-    //    physics.animState=0;
-    //  }
-    //  break;
-    //case 2:
-    //  dead.frame=int(map(millis(), 0, 3000, 0, 4));
-    //  dead.display(x, y);
-    //  if (dead.frame==3) {
-    //    physics.animState=0;
-    //    playerPos.x=width/10.0;
-    //    physics.playerControl=true;
-    //  }
-    //  break;
-    //default:
-    //  idle.frame=int(map(millis(), 0, 1500, 0, 4));
-    //  idle.display(x, y);
-    //  break;
-    //}
+    switch (physics.animState) {
+    case 1:
+      jumping.display(x, y);
+      if (jumping.frame==3) {
+        physics.animState=0;
+      }
+      break;
+    case 2:
+      dead.frame=int(map(millis(), 0, 3000, 0, 4));
+      dead.display(x, y);
+      if (dead.frame==3) {
+        physics.animState=0;
+        playerPos.x=width/10.0;
+        physics.playerControl=true;
+      }
+      break;
+    default:
+      idle.frame=int(map(millis(), 0, 1500, 0, 4));
+      idle.display(x, y);
+      break;
+    }
   }
   void logDisplay() {
     boolean logOffscreen = logPos.y<-700;

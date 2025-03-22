@@ -19,10 +19,12 @@ class Physics {
       ui.button[0]=ui.button[1];
       ui.screen=1;
       ui.resetGame();
-    }else if (keyCode==UP||key=='w'||key=='W'|| mouseY>ui.textPos.y/8.4) {
+    }
+    if (keyCode==UP||key=='w'||key=='W'|| mouseY>ui.textPos.y/8.4) {
       println("UP");
       ui.arrowPos.y=height/1.64;
-    } else if (keyCode==DOWN||key=='s'||key=='S'||mouseY<ui.arrowPos.y) {
+    }
+    if (keyCode==DOWN||key=='s'||key=='S'||mouseY<ui.textPos.y) {
       println("DOWN");
       ui.arrowPos.y=height/1.29;
     }

@@ -34,20 +34,20 @@ class UI {
   }
   //METHODS
   void update() {
-    //switch(screen) {
-    //case 0:
+    switch(screen) {
+    case 0:
       loadingScreen();
-    //  break;
-    //case 1:
-    //gameScreen();
-    //  break;
-    //case 2:
-    //  endGame();
-    //  break;
-    //default:
-    //  loadingScreen();
-    //  break;
-    //}
+      break;
+    case 1:
+    gameScreen();
+      break;
+    case 2:
+      endGame();
+      break;
+    default:
+      loadingScreen();
+      break;
+    }
   }
   void grassland(){
      background(#4b8424);//green
@@ -136,7 +136,8 @@ class UI {
   }
 
   void loadingScreen() {
-    screen=0;
+    physics.startScreenControls();
+    selectArrow();
     grassland();
     //water();
     image(popupWindow,width/8.0, height/12.6,width/1.48,height/1.1);
@@ -153,8 +154,7 @@ class UI {
     text ("Start Game", textPos.x, textPos.y);
     fill(textColor2[0]);
     text ("Exit Game", text2Pos.x, text2Pos.y);
-    physics.startScreenControls();
-    selectArrow();
+
   }
   void selectArrow() {
     float rounded = 6.17;
@@ -175,16 +175,17 @@ class UI {
     assets.update();
   }
   void endGame() {
-    resetMatrix();
-    screen=2;
+    selectArrow();
+    physics.startScreenControls();
     opacity=0;
     background(0);
     fill(255);//white fill
-    textAlign(CENTER);
+    textAlign(LEFT);
     text ("YOU LOSE!", width/2.0, height/2.0);
-    selectArrow();
-    text("Restart Game\n\n\nExit Game", textPos.x,textPos.y);
-    physics.startScreenControls();
+
+    text("Reset Game", textPos.x,textPos.y);
+    text("Exit Game",text2Pos.x,text2Pos.y);
+    
   }
   void resetGame() {
     score=0;
