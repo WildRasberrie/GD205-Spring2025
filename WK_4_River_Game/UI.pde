@@ -28,7 +28,7 @@ class UI {
     heart= new PImage[2];
     heart[0]= loadImage("lives.png");
     heart[1]= loadImage("liveslost.png");
-    redAlert= createFont(fontList[21], 40);
+    redAlert= loadFont("C&CRedAlert[LAN]-40.vlw");
     timer= new Timer(time);//1 secs in millis
   }
   //METHODS
@@ -144,7 +144,7 @@ class UI {
     pulse=(sin(0.0625*frameCount)*10);
     text ("River\n Game", width/3.0, (height/4.0));
     textSize(39);
-    text ("Do you want to start game?", width/2.2, (height/2.0-pulse));
+    text ("Do you want to start?", width/2.2, (height/2.0-pulse));
     textAlign(LEFT);
     textSize(40);
     fill(textColor[0]);
@@ -160,7 +160,7 @@ class UI {
     strokeWeight(5);
     stroke(#161a17);
     fill(button[0],buttonOpacity);
-    rect( arrowPos.x+30, arrowPos.y,textPos.x-170,textPos.y/8.46,
+    rect( arrowPos.x+30, arrowPos.y+40,textPos.x-170,textPos.y/8.46,
     rounded,rounded,rounded,rounded);
     noStroke();
   }
@@ -181,7 +181,7 @@ class UI {
     text ("YOU LOSE!", width/2.0, height/2.0);
     textAlign(LEFT);
     text("Reset Game", textPos.x,textPos.y);
-    text("Exit Game",text2Pos.x,text2Pos.y);
+    text("Exit Game",text2Pos.x,text2Pos.y+20);
     physics.startScreenControls();
     selectArrow();
   }

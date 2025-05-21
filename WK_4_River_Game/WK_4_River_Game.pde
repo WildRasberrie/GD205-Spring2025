@@ -19,8 +19,10 @@ void setup() {
 
 void draw() {
   ui.update();
-  debugBoxes();  
-  println("PlayerPOS\t"+ assets.playerPos.x+"\t,\t"+assets.playerPos.y);
+ if (ui.screen ==1){
+  debugBoxes(); 
+ }
+  //println("PlayerPOS\t"+ assets.playerPos.x+"\t,\t"+assets.playerPos.y);
 }
 
 void keyPressed() {
@@ -42,11 +44,11 @@ void keyPressed() {
       ui.screen=1;
       ui.resetGame();
     }
-    if (keyCode==UP||key=='w'||key=='W'|| mouseY>ui.textPos.y/8.4) {
+    if (keyCode==UP||key=='w'||key=='W') {
       //println("UP");
       ui.arrowPos.y=height/1.64;
     }
-    if (keyCode==DOWN||key=='s'||key=='S'||mouseY<ui.textPos.y) {
+    if (keyCode==DOWN||key=='s'||key=='S') {
       //println("DOWN");
       ui.arrowPos.y=height/1.29;
     }
@@ -70,17 +72,3 @@ void keyPressed() {
       ui.resetGame();
     }
   }
-
-void debugBoxes() {
-  /****************************
-   LILYPAD COLLISION BOXES
-  /***************************/
-  collisionBox= new PVector (assets.lilyPos.x+40, assets.lilyPos.y-180);
-  collisionBox2=new PVector (assets.lilyPos2.x+40, assets.lilyPos2.y-180);
-  strokeWeight(3);
-  stroke(#E10AED,opacity);
-  fill(255, 0);
-  rect(collisionBox.x, collisionBox.y, 40, 250);
-  rect(collisionBox2.x, collisionBox2.y, 40, 250);
-  noStroke();
-}

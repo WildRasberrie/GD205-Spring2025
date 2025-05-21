@@ -1,7 +1,7 @@
 class Assets {
   PVector pos, playerPos, enemyPos, logPos, logPos2,
     lilyPos, lilyPos2;
-  PVector vel, negVel;
+  PVector vel, negVel, rect, size;
   PImage log, lilyPads;
   int logLength;
 
@@ -18,6 +18,10 @@ class Assets {
     negVel= new PVector(0, 5);
     log=loadImage("log.png");
     lilyPads=loadImage("lilypad.png");
+    
+    // Debug Rect 
+    rect= new PVector(playerPos.x,playerPos.y);
+    size= new PVector(50, 100);
     //Import animations
     /*************************
      PLAYER STATES
@@ -33,12 +37,15 @@ class Assets {
     lilyDisplay();
     playerDisplay();
   }
+  
+  
   void update() {
     logPos.add(vel);
     logPos2.add(negVel);
     lilyPos.add(vel);
     lilyPos2.add(negVel);
   }
+  
   void enemyDisplay() {
   }
   void playerDisplay() {
@@ -58,7 +65,7 @@ class Assets {
         physics.playerControl=true;
       }
       break;
-    default:
+      default:
       idle.frame=int(map(millis(), 0, 1500, 0, 4));
       idle.display(x, y);
       break;
