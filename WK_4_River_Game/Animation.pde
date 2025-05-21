@@ -22,8 +22,8 @@ class Animation {
   }
 
   void display(float x, float y) {
-    x=assets.playerPos.x;
-    y=assets.playerPos.y;
+    x=player.pos.x-15;
+    y=player.pos.y-25;
     frame =(frame+1) % numOfFrogs;
     image(froggie[frame], x, y);
   }

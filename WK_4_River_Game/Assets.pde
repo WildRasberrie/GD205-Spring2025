@@ -1,41 +1,38 @@
 class Assets {
-  PVector pos, playerPos, enemyPos, logPos, logPos2,
+  PVector pos, enemyPos, logPos, logPos2,
     lilyPos, lilyPos2;
-  PVector vel, negVel, rect, size;
+  PVector vel, negVel;
   PImage log, lilyPads;
   int logLength;
 
   //CONSTRUCTORS
   Assets (float x, float y) {
     pos= new PVector(x, y);
-    playerPos= new PVector(width/10.0, height/2.0);
+  
     enemyPos=new PVector(width, height);
     logPos=new PVector(width/4.0, height);
     logPos2=new PVector(width/2.5, -600);
     lilyPos=new PVector(width/7.0, height+500);
     lilyPos2=new PVector(width/2.0, -300);
+    
     vel=new PVector (0, -4);
     negVel= new PVector(0, 5);
     log=loadImage("log.png");
     lilyPads=loadImage("lilypad.png");
     
-    // Debug Rect 
-    rect= new PVector(playerPos.x,playerPos.y);
-    size= new PVector(50, 100);
-    //Import animations
-    /*************************
-     PLAYER STATES
-    /*************************/
-    idle= new Animation ("frog", 4);
-    jumping= new Animation ("frogjump", 4);
-    dead= new Animation ("deadFrog", 4);
   }
 
   //METHODS
   void display() {
     logDisplay();
     lilyDisplay();
-    playerDisplay();
+    //debug rect
+    strokeWeight(3);
+    stroke(#E10AED, opacity);
+    
+    fill(255, 0);
+    rect(player.pos.x,player.pos.y,75,75);
+    noStroke();
   }
   
   
@@ -48,29 +45,7 @@ class Assets {
   
   void enemyDisplay() {
   }
-  void playerDisplay() {
-    switch (physics.animState) {
-    case 1:
-      jumping.display(x, y);
-      if (jumping.frame==3) {
-        physics.animState=0;
-      }
-      break;
-    case 2:
-      dead.frame=int(map(millis(), 0, 3000, 0, 4));
-      dead.display(x, y);
-      if (dead.frame==3) {
-        physics.animState=0;
-        playerPos.x=width/10.0;
-        physics.playerControl=true;
-      }
-      break;
-      default:
-      idle.frame=int(map(millis(), 0, 1500, 0, 4));
-      idle.display(x, y);
-      break;
-    }
-  }
+ 
   void logDisplay() {
     boolean logOffscreen = logPos.y<-700;
     boolean logOffscreen2=logPos2.y>height+300;

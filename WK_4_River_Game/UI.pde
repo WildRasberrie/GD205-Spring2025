@@ -39,6 +39,7 @@ class UI {
       break;
     case 1:
     gameScreen();
+    player.playerDisplay();
       break;
     case 2:
       endGame();
@@ -151,8 +152,8 @@ class UI {
     text ("Start Game", textPos.x, textPos.y);
     fill(textColor2[0]);
     text ("Exit Game", text2Pos.x, text2Pos.y);
-   physics.startScreenControls();
     selectArrow();
+    player.startScreenControls();
   }
   void selectArrow() {
     //println("hello");
@@ -160,14 +161,14 @@ class UI {
     strokeWeight(5);
     stroke(#161a17);
     fill(button[0],buttonOpacity);
-    rect( arrowPos.x+30, arrowPos.y+40,textPos.x-170,textPos.y/8.46,
+    rect( arrowPos.x+30, arrowPos.y+40,textPos.x-170,textPos.y-585,
     rounded,rounded,rounded,rounded);
     noStroke();
   }
   void gameScreen() {
     grassland();
     water();//WATER DISPLAY & MOVEMENT
-    physics.gameplayControls();//IMPORT GAME CONTROLS
+    player.gameplayControls();//IMPORT GAME CONTROLS
     scoreDisplay();
     heartsDisplay();
     assets.display();//IMPORT ASSETS DISPLAY & UPDATE
@@ -183,13 +184,14 @@ class UI {
     text ("YOU LOSE!", width/2.0, height/2.0);
     textAlign(LEFT);
     text("Reset Game", textPos.x,textPos.y);
-    text("Exit Game",text2Pos.x,text2Pos.y+20);
-    physics.startScreenControls();
+    text("Exit Game",text2Pos.x,text2Pos.y);
+    player.startScreenControls();
     selectArrow();
   }
   
   void resetGame() {
     score=0;
     hearts=3;
+    gameScreen();
   }
 }
