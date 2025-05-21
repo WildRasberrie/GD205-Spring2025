@@ -112,7 +112,7 @@ class UI {
       noHeart1();
       noHeart2();
       noHeart3();
-      screen=2;
+      screen=2; // end game 
     }
   }
   void heart1 () {
@@ -172,6 +172,8 @@ class UI {
     heartsDisplay();
     assets.display();//IMPORT ASSETS DISPLAY & UPDATE
     assets.update();
+    collisions();
+    debugBoxes();
   }
   void endGame() {
     opacity=0;
@@ -185,11 +187,9 @@ class UI {
     physics.startScreenControls();
     selectArrow();
   }
+  
   void resetGame() {
     score=0;
     hearts=3;
-    if (hearts==0) {
-      screen=2;
-    }
   }
 }

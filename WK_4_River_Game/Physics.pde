@@ -38,84 +38,29 @@ class Physics {
       isDying=false;
       if (left==true) {
         animState=1;
-        assets.playerPos.x-=75;
+        assets.playerPos.x-=50;
         left=false;
       }
       if (right==true) {
         animState=1;
-        assets.playerPos.x+=75;
+        assets.playerPos.x+=50;
         right=false;
       }
       if (up==true) {
         animState=1;
-        assets.playerPos.y-=75;
+        assets.playerPos.y-=50;
         up=false;
       }
       if (down==true) {
         animState=1;
-        assets.playerPos.y+=75;
+        assets.playerPos.y+=50;
         down=false;
       }
-      collisions();
     }
+    lifeCounter();
   }
-  /**************************************
-   SET COLLISIONS
-  /**************************************/
-  void collisions() {
-    boolean
-      collidingLogs=dist(assets.playerPos.x, assets.playerPos.y, assets.logPos.x, assets.logPos.y)<40,
 
-      collidingLogs2=dist(assets.playerPos.x, assets.playerPos.y, assets.logPos2.x, assets.logPos2.y)<40,
-
-      collidingLilies= assets.rect.x > collisionBox.x-100 &&  assets.rect.x < collisionBox.x + 120
-      && assets.rect.y > collisionBox.y-50 && assets.rect.y < collisionBox.y +250,
-
-      collidingLilies2= assets.rect.x > collisionBox2.x-100 &&  assets.rect.x < collisionBox2.x + 120
-      && assets.rect.y > collisionBox2.y-50 && assets.rect.y < collisionBox2.y +250;
-
-    //Log Collisions
-    if (collidingLogs) {
-      colliding=true;
-      scoreCount =true;
-      assets.playerPos.y=assets.logPos.y;
-    } else {
-      scoreCount=false;
-    }
-    if (collidingLogs2) {
-      colliding=true;
-      scoreCount =true;
-      assets.playerPos.y=assets.logPos2.y;
-    } else {
-      scoreCount=false;
-    }
-
-
-    //Lilypad Collisions
-    if (collidingLilies) {
-      println ("Player cont:\t" + physics.playerControl);
-      colliding=true;
-      scoreCount =true;
-      assets.playerPos.y=collisionBox.y;
-    }
-    
-    if (down && collidingLilies) {
-      println ("DOWN PRESSED");
-      assets.playerPos.y=collisionBox.y+50;
-    }
-    if (up && collidingLilies) {
-      println ("UP PRESSED");
-      assets.playerPos.y=collisionBox.y-50;
-    }
-    
-    if (collidingLilies2) {
-      colliding=true;
-      scoreCount =true;
-      assets.playerPos.y=collisionBox2.y;
-    } else if (!colliding) {
-      scoreCount=false;
-    }
-
+  void lifeCounter() {
     //River Collisions
     /****************************************
      LIFE COUNTER
@@ -131,4 +76,5 @@ class Physics {
       animState=2;
     }
   }
+ 
 }
